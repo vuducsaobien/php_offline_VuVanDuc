@@ -1,0 +1,100 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+@font-face {
+    font-family: "Myriad Pro Regular";
+    src: url(fonts/Myriad Pro Regular.ttf);
+    font-family: "HelveticaNeueBold";
+    src: url(fonts/HelveticaNeueBold.ttf);
+}
+
+.bg {
+    width: 800px;
+    height: 600px;
+    background-color: #361438;
+    margin: 100px auto;
+}
+
+.container {
+    position: relative;
+    top: 150px;
+    left: 200px;
+    width: 400px;
+    display: inline-block;
+}
+
+.header {
+    background-color: #6d4a70;
+    font-family: Myriad Pro Regular;
+    font-size: 14px;
+    color:#f2f2f2;
+    line-height: 63px;
+    padding-left: 22px;
+    height: 63px;
+    border-radius: 3px;
+    position: relative;
+}
+
+.close {
+    padding-left: 275px;
+}
+
+.content {
+    background-color: #f2f2f2;
+    border: 5px red;
+    border-radius: 3px;
+    padding: 22px 22px 0px 22px;
+    font-family: HelveticaNeueBold;
+    font-size: 12px;
+}
+
+.user {
+    padding-left: 231px;
+}
+
+.pass {
+    padding-left: 240px;
+}
+
+.box2 {
+    width: 334px;
+    background-color: #f0eef0;
+    font-family: HelveticaNeueBold;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 50px;
+    color: #999999;
+    padding-left: 22px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.box3 {
+    height: 50px;
+}
+
+.box4 {
+    height: 50px;
+}
+
+.box5 {
+    line-height: 40px;
+    width: 100px;
+    height: 40px;
+    background-color: #6b486e;
+    border-radius: 3px;
+    text-align: center;
+    display: inline-block;
+    margin-bottom: 35px;
+    color: white;
+}
+
+a {
+    padding-left: 32px;
+    color: #999999;
+}
+
+
+

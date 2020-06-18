@@ -1,0 +1,109 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+div.box {
+    background-color: yellow;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+}
+
+div.top-right {
+    top: 0px;
+    right: 0px;
+    position: fixed;
+}
+
+div.top-left {
+    top: 0px;
+    left: 0px;
+    position: fixed;
+}
+
+div.bottom-right {
+    bottom: 0px;
+    right: 0px;
+    position: fixed;
+}
+
+div.bottom-left {
+    bottom: 0px;
+    left: 0px;
+    position: fixed;
+}
+
+div.top-center {
+    top: 0px;
+    left: 50%;
+    position: fixed;
+    margin-left: -25px;
+}
+
+div.bottom-center {
+    bottom: 0px;
+    left: 50%;
+    position: fixed;
+    margin-left: -25px;
+}
+
+div.left-center {
+    top: 50%;
+    left: 0px;
+    position: fixed;
+    margin-top: -25px;
+}
+
+div.right-center {
+    top: 50%;
+    right: 0px;
+    position: fixed;
+    margin-top: -25px;
+}
+
+.center {
+    background-color: blue;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    margin-top: -50px;
+    margin-left: -50px;
+}
+
+.box1 {
+    background-color: silver;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+}
+
+.center-TL {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+}
+
+.center-TR {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+}
+
+.center-BL {
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+}
+
+.center-BR {
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+}
