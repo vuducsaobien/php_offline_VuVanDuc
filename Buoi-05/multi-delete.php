@@ -8,9 +8,11 @@
 </head>
 <body>
 <?php
-$checkBox = $_POST['checkbox'];
+require_once 'functions.php';
 
-if(!empty($checkBox)){
+if( isset ($_POST['checkbox'])  ){
+
+    $checkBox = $_POST['checkbox'];
 
     foreach($checkBox as $key => $value){
         $content		= file_get_contents("./files/$value");
@@ -21,14 +23,24 @@ if(!empty($checkBox)){
     
     foreach($checkBox as $key => $value){
         @unlink("./files/$value");
+        $flag = true;
     }
-} 
+
+} else {
+    $flag = false;
+    }
 
 ?>
 	<div id="wrapper">
     	<div class="title">PHP FILE - Multi Delete</div>
-        <div id="form">   
-       		<p>Dữ liệu đã được xóa thành công!  <a href="index.php">Click vào đây</a> đê quay về trang chủ.</p>
+        <div id="form">
+           <?php
+               if ($flag == true){
+                   echo '<p>Dữ liệu đã được xóa thành công! <a href="index.php">Click vào đây</a> để quay về trang chủ.</p>';
+               } else {
+                   echo '<p>Không có File nào được chọn cả! <a href="index.php">Click vào đây</a> để quay về trang chủ.</p>';
+               }
+           ?>
         </div>
     </div>
 </body>

@@ -47,8 +47,9 @@
 							</span>
 					</p>
 
-					<p class="imageID"><?php echo $image; ?></p>
-					<img class = "imageClass" src = "<?php echo "./images/$image" ;?>" >
+					<!-- <p class="imageID"><?php echo $image; ?></p>
+					<img class = "imageClass" src = "<?php echo "./images/$image" ;?>" > -->
+					<p class="image"><img src="<?php echo "./images/$image" ;?>" alt=""></p>
 
 	                <p class="id"><?php echo $id. '.txt'; ?></p>
 	                <p class="size"><?php echo $size; ?></p>

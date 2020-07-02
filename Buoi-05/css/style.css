@@ -55,10 +55,19 @@
 
 #wrapper .list .row .imageID{
 	width: 8%;
+	height: 100%;
 }
 
 #wrapper .list .row .id{
 	width: 8%;
+}
+
+#wrapper .list .row .image{
+	width: 8%;
+}
+
+#wrapper .list .row .image img{
+	width: 100%;
 }
 
 #wrapper .list .row .size{
@@ -69,7 +78,7 @@
 
 #wrapper .list .row .imageClass{
 	width: 10%;
-	height: 10%;
+	height: 100%;
 }
 
 #wrapper .list .row .action{
