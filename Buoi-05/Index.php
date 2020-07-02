@@ -74,3 +74,7 @@
     </div>
 </body>
 </html>
+<?php 
+//Danh sách rỗng => Ẩn Button multi delete & hiện thông báo danh sách rỗng.
+// data => files & images gán Define hết vào
+?>
