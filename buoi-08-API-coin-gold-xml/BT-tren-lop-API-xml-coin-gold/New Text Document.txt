@@ -1,0 +1,3 @@
+json formatter Chrome Extension
+API
+https://www.coingecko.com/en/api

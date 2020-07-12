@@ -1,0 +1,61 @@
+<root>
+<title>Cong ty TNHH MTV Vang bac da quy Sai gon : Bang Ty gia vang SJC</title>
+<url>http://www.sjc.com.vn/</url>
+<ratelist updated="10:24:12 AM 09/07/2020" unit="ngàn đồng/lượng">
+<city name="Hồ Chí Minh">
+<item buy="50.150" sell="50.550" type="Vàng SJC 1L - 10L"/>
+<item buy="49.900" sell="50.450" type="Vàng nhẫn SJC 99,99 1 chỉ, 2 chỉ, 5 chỉ"/>
+<item buy="49.900" sell="50.550" type="Vàng nhẫn SJC 99,99 0,5 chỉ"/>
+<item buy="49.550" sell="50.300" type="Vàng nữ trang 99,99%"/>
+<item buy="48.602" sell="49.802" type="Vàng nữ trang 99%"/>
+<item buy="36.079" sell="37.879" type="Vàng nữ trang 75%"/>
+<item buy="27.678" sell="29.478" type="Vàng nữ trang 58,3%"/>
+<item buy="19.327" sell="21.127" type="Vàng nữ trang 41,7%"/>
+</city>
+<city name="Hà Nội">
+<item buy="50.150" sell="50.570" type="Vàng SJC"/>
+</city>
+<city name="Đà Nẵng">
+<item buy="50.150" sell="50.570" type="Vàng SJC"/>
+</city>
+<city name="Nha Trang">
+<item buy="50.140" sell="50.570" type="Vàng SJC"/>
+</city>
+<city name="Cà Mau">
+<item buy="50.150" sell="50.570" type="Vàng SJC"/>
+</city>
+<city name="Huế">
+<item buy="50.120" sell="50.580" type="Vàng SJC"/>
+</city>
+<city name="Bình Phước">
+<item buy="50.130" sell="50.570" type="Vàng SJC"/>
+</city>
+<city name="Miền Tây">
+<item buy="50.150" sell="50.550" type="Vàng SJC"/>
+</city>
+<city name="Biên Hòa">
+<item buy="50.150" sell="50.550" type="Vàng SJC"/>
+</city>
+<city name="Quãng Ngãi">
+<item buy="50.150" sell="50.550" type="Vàng SJC"/>
+</city>
+<city name="Long Xuyên">
+<item buy="50.170" sell="50.600" type="Vàng SJC"/>
+</city>
+<city name="Bạc Liêu">
+<item buy="50.150" sell="50.570" type="Vàng SJC"/>
+</city>
+<city name="Quy Nhơn">
+<item buy="50.130" sell="50.570" type="Vàng SJC"/>
+</city>
+<city name="Phan Rang">
+<item buy="50.130" sell="50.570" type="Vàng SJC"/>
+</city>
+<city name="Hạ Long">
+<item buy="50.130" sell="50.570" type="Vàng SJC"/>
+</city>
+<city name="Quảng Nam">
+<item buy="50.130" sell="50.570" type="Vàng SJC"/>
+</city>
+</ratelist>
+</root>
