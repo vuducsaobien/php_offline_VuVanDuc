@@ -1,39 +1,23 @@
 <?php
-
+/* Static
+- Được dùng với Phương Thức & Biến
+- Truy cập nhanh PThức mà không cần khởi tạo đối tượng
+*/
+// 1 2 3
 class Sample{
     static $a = 1000;
-
-    static function showInfo(){
-        echo '<h3>showInfo</h3>';
-    }
 }
 
-echo Sample::$a;
-Sample::showInfo();
+// 1 Không gọi được
+// $sample = new Sample();
+// echo 'Static $a: ' . $sample->a;
 
-/* Cách 1: bình thường ko có static (public function);
-                            class Sample{
-                            public $a = 1000;
+// 2 Không gọi được
+// $sample = new Sample();
+// echo 'Static $a: ' . $sample->$a;
 
-                            public function showInfo(){
-                                echo '<h3>showInfo</h3>';
-                            }
-
-                        $sample = new Sample();
-                        echo $sample->a;
-                        $sample->showInfo();
-*/
-
-/*Cách 2: STATIC public
-                            class Sample{
-                            static $a = 1000;
-
-                            static function showInfo(){
-                                echo '<h3>showInfo</h3>';
-                            }
-
-                        echo Sample::$a;
-                        Sample::showInfo();
-*/
+// 3 Hiển thị được
+$sample = new Sample();
+echo 'Static $a: ' . Sample::$a;
 
 

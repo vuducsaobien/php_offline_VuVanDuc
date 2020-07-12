@@ -28,6 +28,10 @@ class Cat{
 
 // catA
 $catA = new Cat();
+echo '<pre>';
+print_r($catA);
+echo '</pre>';
+echo '<hr>';
 
 $catA->setName('Tom');
 echo '<br>Name: ' . $catA->getName();

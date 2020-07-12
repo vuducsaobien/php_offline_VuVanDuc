@@ -7,55 +7,58 @@
 	  ?>
   </head>
   <body>
+	<?php 
+		require_once DIR_HTML .'content.php';
+		require_once DIR_HTML . 'vnexpress.php';
+/*GIẢI ĐÁP THẮC MẮC VNEXPRESS.NET
+	// $urlVnexpress = 'https://vnexpress.net/rss/giai-tri.rss';
+	// '<a href="https://vnexpress.net/dam-vinh-hung-tinh-tu-ben-ly-nha-ky-4129179.html">
+	// <img src="https://i1-giaitri.vnecdn.net/2020/07/12/ly-nha-ky-top.jpg?w=900&h=0&q=100&dpr=1&fit=crop&s=v158dLXvn5_DUQYbWeFHmw" >
+	// </a></br>Ca sĩ Đàm Vĩnh Hưng choàng vai, hôn má diễn viên Lý Nhã Kỳ trong buổi giao lưu tối 11/7. ]]>';
 
-	<div id="colorlib-page">
-		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
-		<aside id="colorlib-aside" role="complementary" class="js-fullheight">
-			<nav id="colorlib-main-menu" role="navigation">
-				<ul>
-					<li class="colorlib-active"><a href="index.html">Home</a></li>
-					<li><a href="fashion.html">Fashion</a></li>
-					<li><a href="travel.html">Travel</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
-				</ul>
-			</nav>
+	// $urlVnexpress = 'https://vnexpress.net/rss/giai-tri.rss';//9+71+15+47
+	// $dataVnexpress = simplexml_load_file($urlVnexpress);
+	// $description = $dataVnexpress->channel->item[0]->description;
+	// $item = $dataVnexpress->channel->item[0];
 
-			<div class="colorlib-footer">
-				<h1 id="colorlib-logo" class="mb-4"><a href="index.html" style="background-image: url(images/bg_1.jpg);">Andrea <span>Moore</span></a></h1>
-				<div class="mb-4">
-					<h3>Subscribe for newsletter</h3>
-					<form action="#" class="colorlib-subscribe-form">
-            <div class="form-group d-flex">
-            	<div class="icon"><span class="icon-paper-plane"></span></div>
-              <input type="text" class="form-control" placeholder="Enter Email Address">
-            </div>
-          </form>
-				</div>
-				<p class="pfooter"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-	  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-	  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-			</div>
-		</aside> <!-- END COLORLIB-ASIDE -->
-		<div id="colorlib-main">
-			<section class="ftco-section ftco-no-pt ftco-no-pb">
-	    	<div class="container">
-	    		<div class="row d-flex">
-	    			<div class="col-xl-8 py-5 px-md-5">
+	// echo '-leng $description = ' . strlen ($description);
+	// echo '<br>';
+	// echo '<br>';
 
-						<?php require_once DIR_HTML . 'vnexpress.php'; ?>
-				<?php
+	// echo '-leng $link = ' . strlen($link);
+	// echo '<br>';
+	// echo '$link = ' . $link = $item->link;
+	// echo '<br>';
 
-				// Provides: You should eat pizza, beer, and ice cream every day
-				// echo $phrase  = "You should eat fruits, vegetables, and fiber every day." . '<br>';
-				// $healthy = array("fruits", "vegetables", "fiber");
-				// $yummy   = array("pizza", "beer", "ice cream");
+	// echo '-leng $srcIMAGE = ' . strlen($srcImage);
+	// echo '<br>';
+	// echo '$srcIMAGE = ' . $srcImage = getImgSrc($description);
+	// echo '<br>';
 
-				// echo $newphrase = str_replace($healthy, $yummy, $phrase);
+	// echo '-leng $content = ' . $leng = 24+strlen($link)+strlen($srcImage)+5;
+	// echo '<br>';
+	// echo '-$content ='. $content = substr($description,$leng,150);
+	// echo '<br>';
+	// echo substr($content, 4,100);
+	// echo '<br>';
+	// echo strlen($content);
+	// echo '<br>';
+	// echo substr($description,-126,500);
+	// echo '<pre>';
+	// print_r($item);
+	// echo '</pre>';
+*/
 
-				// $urlVnexpress = 'https://vnexpress.net/rss/giai-tri.rss';
-				// $dataVnexpress = simplexml_load_file($urlVnexpress);
-				// $arrayVnexpress = (array) $dataVnexpress;
+// Provides: You should eat pizza, beer, and ice cream every day
+// echo $phrase  = "You should eat fruits, vegetables, and fiber every day." . '<br>';
+// $healthy = array("fruits", "vegetables", "fiber");
+// $yummy   = array("pizza", "beer", "ice cream");
+
+// echo $newphrase = str_replace($healthy, $yummy, $phrase);
+
+// $urlVnexpress = 'https://vnexpress.net/rss/giai-tri.rss';
+// $dataVnexpress = simplexml_load_file($urlVnexpress);
+// $arrayVnexpress = (array) $dataVnexpress;
 
 
 //Get all tags and their values. CDATA (recursive)

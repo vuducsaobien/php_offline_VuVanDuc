@@ -1,12 +1,11 @@
 <?php
-require_once 'cat.class.php';
-// 1
+require_once '2.cat.class.php';
+// 1 2
 // class Lion extends Cat{
 
 // }
 
 
-// 2
 class Lion extends Cat{
 
 public $height = '1m3';

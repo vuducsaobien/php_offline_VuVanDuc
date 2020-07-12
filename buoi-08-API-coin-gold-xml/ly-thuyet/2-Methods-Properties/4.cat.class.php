@@ -7,7 +7,6 @@ class Cat{
     public $age;
 
     //Methods
-
     //Methods set
     public function setName($value){
         $this->name = $value;
@@ -35,7 +34,7 @@ class Cat{
     }
 
     public function showInfo(){
-        echo '<br>Name: ' . $this->getName();
+        echo '<br>Name: ' . $this->name;
         echo '<br>Color: ' . $this->getColor();
         echo '<br>Age: ' . $this->getAge();
         echo '<hr>';
