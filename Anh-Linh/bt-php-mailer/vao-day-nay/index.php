@@ -22,6 +22,10 @@ if(isset($_POST['submit'])){
 
 // Instantiation and passing `true` enables exceptions
 $mail = new PHPMailer(true);
+// echo '<pre>';
+// print_r($mail);
+// echo '</pre>';
+// exit;
 
 try {
     //Server settings
@@ -44,7 +48,11 @@ try {
     $mail->Body    = '<b>'.$content.'</b>';
     // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-    $mail->send();
+	$mail->send();
+	echo '<pre>';
+	print_r($mail);
+	echo '</pre>';
+
     echo 'Message has been sent';
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

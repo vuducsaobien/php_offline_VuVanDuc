@@ -18,9 +18,12 @@
 			require_once '../define.php';
 			$data = file_get_contents('../' . DIR_DATA . 'users.json');//Lấy nội dung file JSON
 			$json = json_decode($data, TRUE);//Chuyển từ 1 chuỗi thành 1 mảng File Json.
+
 			//Nếu Guest đã là Admin hoặc Member rồi.
         	if(isset($_SESSION['flagPermission'])==true){
 				$timeoutXML = simplexml_load_file('../' . DIR_DATA . 'timeout.xml'); //Đọc file xml
+
+				//Check timeout
 				if( time() < $_SESSION['timeout'] + $timeoutXML -> time ){
 					echo '<h3>Xin chào: '.$_SESSION['fullName'].'</h3>';
 					echo '<a href="logout.php">Đăng xuất</a>';
@@ -37,6 +40,7 @@
 				}
 			}else{
         ?>
+		
 			<form action="process.php" method="post" name="add-form">
 				<div class="row">
 					<p>Username</p>
@@ -52,6 +56,7 @@
 					<input type="submit" value="Đăng nhập" name="submit">
 				</div>
 			</form>    
+
 		<?php
 			} 
 		?>

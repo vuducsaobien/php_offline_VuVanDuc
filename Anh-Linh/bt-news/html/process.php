@@ -29,6 +29,7 @@
 						header('location: login.php');
 					}
 				}else{ //Nếu Guest chưa là Admin hoặc Member.
+
 					// Nếu Guest ĐÃ TYPE & nhấn Submit ô input Username & Pass ở trang login rồi.
 					// (Nếu đã tồn tại $_POST['username'] && $_POST['password'])
 					if(!checkEmpty($_POST['username']) && !checkEmpty($_POST['password'])){
@@ -62,6 +63,7 @@
 						}else{
 							header('location: login.php');
 						}
+						
 					// Nếu user chưa Type user & pass ở trang login.
 					}else{
 						header('location: login.php');
