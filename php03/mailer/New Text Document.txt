@@ -1,0 +1,4 @@
+PHP Mailer
+PHP composer => Develop Mode => Choose your project
+https://getcomposer.org/
+Ctrl Shift ~ => composer require phpmailer/phpmailer (PHP Mailer) => VS Code open your project

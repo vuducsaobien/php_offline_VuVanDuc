@@ -1,0 +1,20 @@
+[
+    {
+        "username":"duc",
+        "password":"202cb962ac59075b964b07152d234b70",
+        "fullname":"vu van duc",
+        "level"   :"admin"
+    },
+    {
+        "username":"linh",
+        "password":"202cb962ac59075b964b07152d234b70",
+        "fullname":"vu van linh",
+        "level"   :"member"
+    },
+    {
+        "username":"nga",
+        "password":"202cb962ac59075b964b07152d234b70",
+        "fullname":"vu van nga",
+        "level"   :"member"
+    }
+]

@@ -1,7 +1,0 @@
-DirectoryIndex index.php
-
-# Protect the users.json
-<Files users.json>
-Order Allow,Deny
-Deny from all
-</Files>
