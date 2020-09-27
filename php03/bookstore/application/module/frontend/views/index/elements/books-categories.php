@@ -1,6 +1,9 @@
 <?php
 $categoriesSpecial = '';
 $booksInCategorySpecial = '';
+// echo '<pre>';
+// print_r($this->booksCategories);
+// echo '</pre>';
 if (!empty($this->booksCategories)) {
     foreach ($this->booksCategories as $key => $category) {
         $linkReadMore = URL::createLink($this->arrParam['module'], 'book', 'index', ['category_id' => $category['category_id']]);

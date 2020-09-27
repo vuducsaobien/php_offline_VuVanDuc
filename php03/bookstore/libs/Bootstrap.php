@@ -12,7 +12,13 @@ class Bootstrap{
 			$this->loadExistingController($filePath, $controllerName);
 			$this->callMethod();
 		}else{
-			URL::redirect('frontend', 'index', 'notice', ['type' => 'not-url'] );
+
+			if($this->_params['module'] == 'backend'){
+				URL::redirect('backend', 'index', 'notice', ['type' => 'not-url'] );
+			}else{
+				URL::redirect('frontend', 'index', 'notice', ['type' => 'not-url'] );
+			}
+			
 		}
 	}
 	
@@ -41,7 +47,7 @@ class Bootstrap{
 						// 	URL::redirect('frontend', 'index', 'notice', ['type' => 'not-permission'] );
 						// }
 					}else{
-						URL::redirect('frontend', 'index', 'notice', ['type' => 'not-permission'] );
+						URL::redirect('backend', 'index', 'notice', ['type' => 'not-permission'] );
 					}
 				}else{
 					$this->callLoginAction($module);
@@ -91,7 +97,7 @@ class Bootstrap{
 	
 	// ERROR CONTROLLER
 	public function _error(){
-		// require_once MODULE_PATH . 'default' . DS . 'controllers' . DS . 'ErrorController.php';
+		// require_once MODULE_PATH . 'default' . DS . 'controllers' . DS . 'troller.php';
 		require_once MODULE_PATH . 'frontend' . DS . 'controllers' . DS . 'ErrorController.php';
 		$this->_controllerObject = new ErrorController();
 		// $this->_controllerObject->setView('default');

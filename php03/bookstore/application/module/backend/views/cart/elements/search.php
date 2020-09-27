@@ -1,8 +1,5 @@
 <?php
-// SELECT BOX GROUP ACP
-
 // Button
-// $btnSearch = Helper::cmsButton('button', 'Search', 'btn-search', 'submit', 'btn btn-sm btn-info');
 $btnSearch = Helper::cmsButton('button', 'Search', null, 'submit', 'btn btn-sm btn-info');
 $btnClear  = Helper::cmsButton('button', 'Clear', 'btn-clear-search', 'button', 'btn btn-sm btn-danger');
 

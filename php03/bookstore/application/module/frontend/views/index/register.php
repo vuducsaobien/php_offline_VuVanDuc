@@ -30,8 +30,6 @@ $linkAction    = URL::createLink('frontend', 'index', 'register');
 
 
 ?>
-<!-- <input type="hidden" id="form[token]" name="form[token]" value="1599208957">
-<button type="submit" id="submit" name="submit" value="Tạo tài khoản" class="btn btn-solid">Tạo tài khoản</button> -->
 
 <div class="breadcrumb-section">
     <div class="container">
@@ -57,9 +55,6 @@ $linkAction    = URL::createLink('frontend', 'index', 'register');
                             <?php echo $rowUserName . $rowPassword . $rowEmail . $rowFullName ;?>
                         </div>
                         <?php echo $btnRegister . $inputToken ;?>
-
-                        <!-- <input type="hidden" id="form[token]" name="form[token]" value="1599208957">
-                        <button type="submit" id="submit" name="submit" value="Tạo tài khoản" class="btn btn-solid">Tạo tài khoản</button> -->
                     </form>
                 </div>
 

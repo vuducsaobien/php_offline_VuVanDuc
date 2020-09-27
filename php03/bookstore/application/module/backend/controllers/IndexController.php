@@ -1,6 +1,5 @@
 <?php
 class IndexController extends Controller{
-// class IndexController extends BackendController{
 	public function __construct($arrParams){
 		parent::__construct($arrParams);
 
@@ -106,6 +105,17 @@ class IndexController extends Controller{
 		$this->_view->render($this->_controllerName . '/profile');
 
 	}
+
+	public function noticeAction(){
+		$this->_templateObj->setFolderTemplate('admin/adminlte/');
+		$this->_templateObj->setFileTemplate('index.php');
+		$this->_templateObj->setFileConfig('template.ini');
+		$this->_templateObj->load();
+
+		$this->_view->_title = ucfirst($this->_controllerName) . ' || ' . ucfirst($this->_actionName);
+		$this->_view->render('index/notice');
+	}
+
 
 
 }

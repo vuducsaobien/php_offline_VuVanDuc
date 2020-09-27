@@ -1,8 +1,17 @@
 <?php
 // Button
-// $btnSearch = Helper::cmsButton('button', 'Search', 'btn-search', 'submit', 'btn btn-sm btn-info');
 $btnSearch = Helper::cmsButton('button', 'Search', null, 'submit', 'btn btn-sm btn-info');
 $btnClear  = Helper::cmsButton('button', 'Clear', 'btn-clear-search', 'button', 'btn btn-sm btn-danger');
+
+// SELECT BOX
+$arrSpecial = [
+    ['name'  => '- Select Special Category -' , 'id' => 'default'],
+    ['name'  => 'Yes'                       , 'id' => '1'],
+    ['name'  => 'No'                        , 'id' => '0']
+];
+
+$filterSpecial   = HTML::createSelectBox($arrSpecial, 'filter_special', 'custom-select custom-select-sm', 'width: unset', null, null, $this->arrParam['filter_special']);
+
 
 // Input
 $inputHiddenModule     = Helper::cmsInput('hidden', 'module', null, null, $module, null, null);
@@ -35,6 +44,12 @@ $xhtmlFilterButton = HTML::showFilterButton($this->arrParam, $itemsStatusCount, 
         <div class="row justify-content-between">
             <div class="mb-1">
                 <?php echo $xhtmlFilterButton ;?>
+            </div>
+
+            <div class="mb-1">
+                <form id="filter-bar" name="filter-bar" method="GET" action="">  
+                    <?php echo $inputHiddenModule . $inputHiddenController . $inputHiddenAction . $filterSpecial ;?>                        
+                </form>
             </div>
             
             <div class="mb-1">

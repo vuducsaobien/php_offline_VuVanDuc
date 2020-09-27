@@ -3,9 +3,9 @@ $module         = $this->arrParam['module'];
 $controller     = $this->arrParam['controller'];
 $action         = $this->arrParam['action'];
 
-$linkMyAccount      = URL::createLink($module, 'user', 'index');
+$linkMyAccount      = URL::createLink($module, 'user', 'index', null, 'my-account.html');
 $linkChangePass     = URL::createLink($module, 'user', 'change_password');
-$linkHistory        = URL::createLink($module, 'user', 'history');
+$linkHistory        = URL::createLink($module, 'user', 'history', null, 'history.html');
 $linkLogout         = URL::createLink($module, 'index', 'logout');
 
 $imageURL           = $this->_dirImg;

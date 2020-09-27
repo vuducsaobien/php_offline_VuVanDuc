@@ -58,20 +58,25 @@ $(document).ready(function () {
             case 'multi-active':
                 link += 'multi_active';
                 break;
+
             case 'multi-inactive':
                 link += 'multi_inactive';
                 break;
+
             case 'multi-delete':
                 link += 'multi_delete';
                 break;
+
             case 'multi-ordering':
                 link += 'multi_ordering';
                 break;
-            case 'multi-special-active':
-                link += 'multi_special_active';
+
+            case 'multi-special':
+                link += 'multi_special';
                 break;
-            case 'multi-special-inactive':
-                link += 'multi_special_inactive';
+
+            case 'multi-unspecial':
+                link += 'multi_unspecial';
                 break;
             
             default:
@@ -106,6 +111,8 @@ $(document).ready(function () {
         let id = $(this).data('id');
         let url = `index.php?module=${moduleName}&controller=${controllerName}&action=ajaxOrdering&id=${id}&ordering=${ordering}`;
         $.get(url, function (data) {
+            console.log(data);
+
             // if (data > 0) {
                 $('.modified-' + data.id).html(data.modified);
                 $chkOrdering.notify('Cập nhật thành công!', {
@@ -169,7 +176,7 @@ $(document).ready(function () {
         url,
         function (data) {
             console.log(data);
-            if (data.state == 1) {
+            if (data.state == 1 || data.state == 'active') {
                 myBtnState.removeClass('btn-danger');
                 myBtnState.addClass('btn-success');
                 myBtnState.find('i').attr('class', 'fas fa-check');
@@ -178,6 +185,7 @@ $(document).ready(function () {
                 myBtnState.addClass('btn-danger');
                 myBtnState.find('i').attr('class', 'fas fa-minus');
             }
+
             $('.modified-' + data.id).html(data.modified);
             myBtnState.attr('href', data.link);
             showNotify(myBtnState, 'success-update');

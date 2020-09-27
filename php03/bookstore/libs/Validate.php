@@ -5,7 +5,7 @@ class Validate{
 	private $errors	= array();
 	
 	// Source array
-	private $source	= array();
+	protected $source	= array();
 	
 	// Rules array
 	private $rules	= array();
@@ -144,11 +144,12 @@ class Validate{
 	public function showErrors(){
 		$xhtml = '';
 		if(!empty($this->errors)){
-			$xhtml .= '<div class="alert alert-danger alert-dismissible">
-							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><ul>
-							<h5><i class="icon fas fa-exclamation-triangle"></i> Lỗi!</h5>
-							<ul class="list-unstyled mb-0">
-				';
+			$xhtml .= '
+			<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><ul>
+				<h5><i class="icon fas fa-exclamation-triangle"></i> Lỗi!</h5>
+				<ul class="list-unstyled mb-0">
+			';
 			foreach($this->errors as $key => $value){
 				$xhtml .= '<li class="text-white">'.$value.'</li>';
 			}

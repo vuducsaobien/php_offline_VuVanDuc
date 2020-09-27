@@ -1,61 +1,80 @@
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
 <?php
-$module         = $this->arrParam['module'];
-$controller     = $this->arrParam['controller'];
-$action         = $this->arrParam['action'];
+require_once LIBRARY_PATH . 'Model.php';
+    $model      = new Model();
+    $userObj         = Session::get('user');
+    $userInfo        = $userObj['info'];
 
-$imageURL       = $this->_dirImg;
-$linkHome       = URL::createLink('frontend', 'index', 'index');
-$linkCategory   = URL::createLink('frontend', 'category', 'index');
-$linkBook       = URL::createLink('frontend', 'book', 'list');
+    $module         = $this->arrParam['module'];
+    $controller     = $this->arrParam['controller'];
+    $action         = $this->arrParam['action'];
 
-$linkRegister   = URL::createLink('frontend', 'index', 'register');
-$linkLogin      = URL::createLink('frontend', 'index', 'login');
-$linkLogout     = URL::createLink('backend', 'dashboard', 'logout');
+    $imageURL       = $this->_dirImg;
 
-$arrayMenu		= [];
-if($userObj['login'] == false){
-    $arrayMenu[] = ['link' => URL::createLink('frontend', 'index', 'login'), 	'name' => 'Đăng nhập'];
-    $arrayMenu[] = ['link' => URL::createLink('frontend', 'index', 'register'), 'name' => 'Đăng ký'];
-}else{
-    $arrayMenu[] = ['link' => URL::createLink('frontend', 'index', 'logout'),   'name' => 'Logout'];
-}
+    $linkHome       = URL::createLink('frontend', 'index', 'index', null, 'index.html');
+    $linkCategory   = URL::createLink('frontend', 'category', 'index', null, 'category.html');
+    $linkBook       = URL::createLink('frontend', 'book', 'list', null, 'book.html');
+    $linkCart       = URL::createLink('frontend', 'user', 'cart', null, 'cart.html');
+    $linkMyAccount  = URL::createLink('frontend', 'user', 'index', null, 'my-account.html');
+    $linkAdmin      = URL::createLink('backend', 'dashboard', 'index', null, 'admin.html');
 
+    $linkRegister   = URL::createLink('frontend', 'index', 'register', null, 'register.html');
+    $linkLogin      = URL::createLink('frontend', 'index', 'login', null, 'login.html');
+    // $linkLogout     = URL::createLink('backend', 'dashboard', 'logout', null, 'logout.html');
 
-if($userInfo['group_acp'] == 1 && $userInfo['status'] == 'active'){
-    $arrayMenu[] = ['link' => URL::createLink('backend', 'dashboard', 'index'),   'name' => 'Admin Control Panel']; 
-}
-
-foreach($arrayMenu as $menu){
-    $xhtml .= '
-        <li><a href="'.$menu['link'].'">'.$menu['name'].'</a></li>
-    ';
-}
-
-$query[]	= "SELECT COUNT(`b`.`id`) AS `totalBook`, `b`.`category_id`, `c`.`name` AS `category_name`, `c`.`picture` AS `category_picture`";
-$query[]	= "FROM `".TBL_BOOK."` AS `b` LEFT JOIN `".TBL_CATEGORY."` AS `c` ON `b`.`category_id` = `c`.`id`";
-$query[]	= "WHERE `c`.`status` = 'active'";
-$query[]	= "GROUP BY `b`.`category_id`";
-$query[] 	= "ORDER BY `c`.`ordering` ASC ";
-$query		= implode(" ", $query);
-$listCats   = $model->fetchAll($query);
-
-$xhtmlCats  = '';
-if (!empty($listCats)) {
-    foreach($listCats as $value){
-        $link = URL::createLink('frontend', 'book', 'list', ['category_id' => $value['category_id']]);
-        $xhtmlCats .= '<li><a href="'.$link.'">'.$value['category_name'].'</a></li>';
+    $arrayMenu		= [];
+    if($userObj['login'] == false){
+        $arrayMenu[] = ['link' => $linkLogin, 	'name' => 'Đăng nhập'];
+        $arrayMenu[] = ['link' => $linkRegister, 'name' => 'Đăng ký'];
+    }else{
+        $arrayMenu[] = ['link' => URL::createLink('backend', 'dashboard', 'logout'),      'name' => 'Logout'];
+        $arrayMenu[] = ['link' => $linkMyAccount,   'name' => 'My Acount Form'];
     }
-}
 
-$classHome= '';
-$classBook= '';
-$classCategory= '';
+    if($userInfo['group_acp'] == 1 && $userInfo['status'] == 'active'){
+        $arrayMenu[] = ['link' => $linkAdmin,   'name' => 'Admin Control Panel']; 
+    }
 
-if($controller=='index') $classHome = 'class="my-menu-link active"';
-if($controller=='book') $classBook = 'class="my-menu-link active"';
+    foreach($arrayMenu as $menu){
+        $xhtml .= '
+            <li><a href="'.$menu['link'].'">'.$menu['name'].'</a></li>
+        ';
+    }
+
+    $query[]	= "SELECT COUNT(`b`.`id`) AS `totalBook`, `b`.`category_id`, `c`.`name` AS `category_name`, `c`.`picture` AS `category_picture`";
+    $query[]	= "FROM `".TBL_BOOK."` AS `b` LEFT JOIN `".TBL_CATEGORY."` AS `c` ON `b`.`category_id` = `c`.`id`";
+    $query[]	= "WHERE `c`.`status` = 'active'";
+    $query[]	= "GROUP BY `b`.`category_id`";
+    $query[] 	= "ORDER BY `c`.`ordering` ASC ";
+    $query		= implode(" ", $query);
+    $listCats   = $model->fetchAll($query);
+
+    $xhtmlCats  = '';
+    if (!empty($listCats)) {
+        foreach($listCats as $value){
+            $link = URL::createLink('frontend', 'book', 'list', ['category_id' => $value['category_id']]);
+            $xhtmlCats .= '<li><a href="'.$link.'">'.$value['category_name'].'</a></li>';
+        }
+    }
+
+    $classHome= '';
+    $classBook= '';
+    $classCategory= '';
+
+    if($controller=='index') $classHome = 'class="my-menu-link active"';
+    if($controller=='book') $classBook = 'class="my-menu-link active"';
 if($controller=='category') $classCategory = 'class="my-menu-link active"';
 
+$cart = Session::get('cart');
+$totalItems = 0;
+$totalPrices = 0;
+$booksOrder = 0;
+if(!empty($cart)){
+    $totalItems = array_sum($cart['quantity']);
+    // echo '<br>';
+    $totalPrices = array_sum($cart['price']);
+    $booksOrder = $totalItems;
+}
 ?>
 <header class="my-header sticky">
     <div class="mobile-fix-option"></div>
@@ -70,6 +89,7 @@ if($controller=='category') $classCategory = 'class="my-menu-link active"';
                             </a>
                         </div>
                     </div>
+
                     <div class="menu-right pull-right">
                         <div>
                             <nav id="main-nav">
@@ -88,6 +108,7 @@ if($controller=='category') $classCategory = 'class="my-menu-link active"';
                                 </ul>
                             </nav>
                         </div>
+
                         <div class="top-header">
                             <ul class="header-dropdown">
                                 <li class="onhover-dropdown mobile-account">
@@ -134,11 +155,11 @@ if($controller=='category') $classCategory = 'class="my-menu-link active"';
                                     </li>
                                     <li class="onhover-div mobile-cart">
                                         <div>
-                                            <a href="cart.html" id="cart" class="position-relative">
+                                            <a href="<?php echo $linkCart;?>" id="cart" class="position-relative">
                                                 <img src="<?php echo $imageURL;?>/cart.png" class="img-fluid blur-up lazyload"
                                                     alt="cart">
                                                 <i class="ti-shopping-cart"></i>
-                                                <span class="badge badge-warning">0</span>
+                                                <span class="badge badge-warning"><?php echo $booksOrder ;?></span>
                                             </a>
                                         </div>
                                     </li>

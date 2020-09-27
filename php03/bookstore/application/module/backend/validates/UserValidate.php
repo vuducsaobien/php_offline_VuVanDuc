@@ -5,17 +5,31 @@ class UserValidate extends Validate
     {
         $dataForm = $arrParams['form'] ?? [];
         parent::__construct($dataForm);
-        // parent::__construct($arrParams['form']);
     }
 
-    public function validate()
+    public function validate($model)
     {
-        // $this
-        //     ->addRule('username', 'string-notExistRecord', array('database' => $this->_model, 'query' => $queryUserName, 'min' => 3, 'max' => 25))
-        //     ->addRule('password', 'string', array('min' => 1, 'max' => 255))
-        //     ->addRule('email', 'email')
-        //     ->addRule('status', 'status', ['deny' => ['default']])
-        //     ->addRule('group_id', 'group', array('deny' => array('default')));
-        // $this->run();
+        $queryUsername = "SELECT `id` FROM " . TBL_USER . " WHERE `username` = '{$this->source['username']}'";
+        $queryEmail = "SELECT `id` FROM " . TBL_USER . " WHERE `email` = '{$this->source['email']}'";
+        if(isset($this->source['id'])){
+            $queryUsername .= " AND `id` <> '{$this->source['id']}'";        
+            $queryEmail .= " AND `id` <> '{$this->source['id']}'";
+        } else {
+            $this->addRule('password', 'string', ['min' => 3, 'max' => 32]);
+        }
+
+        $this
+        ->addRule('username', 'string-notExistRecord', [
+            'database'  => $model, 
+            'query'     => $queryUsername, 
+            'min'       => 3, 'max' => 25
+        ])
+        ->addRule('email', 'email-notExistRecord', [
+            'database'  => $model, 
+            'query'     => $queryEmail
+            ])
+        ->addRule('status', 'status', ['deny' => ['default']])
+        ->addRule('group_id', 'group', ['deny' => ['default']] );
+        $this->run();
     }
 }

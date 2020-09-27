@@ -7,13 +7,16 @@ class CartController extends BackendController
 		parent::__construct($arrParams);
 	}
 
-	// ACTION: LIST GROUP
+	// ACTION: LIST CART
 	public function indexAction()
 	{
+		// echo '<pre>$this->_arrParam ';
+		// print_r($this->_arrParam);
+		// echo '</pre>';
 		$this->_view->_title 		= ucfirst($this->_controllerName) . ' Manager :: List';
 
 		$totalItems					= $this->_model->countItem($this->_arrParam);
-		$configPagination = ['totalItemsPerPage' => 4, 'pageRange' => 3];
+		$configPagination = ['totalItemsPerPage' => 10, 'pageRange' => 3];
 		$this->setPagination($configPagination);
 		$this->_view->pagination	= new Pagination($totalItems, $this->_pagination);
 
@@ -25,12 +28,6 @@ class CartController extends BackendController
 		$this->_view->render('cart/index');
 
 	}
-
-	public function ajaxChangeStatusAction()
-    {
-		$result = $this->_model->ajaxChangeStatusLib($this->_arrParam);
-        echo json_encode($result);
-    }
 
 	
 

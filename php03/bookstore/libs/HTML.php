@@ -117,7 +117,7 @@ class HTML
     // Create Item History
     public static function showItemHistory($by, $time)
     {
-        $time =  Helper::formatDate(DATETIME_FORMAT, $time);
+        $time =  Helper::formatDate(TIMEDATE_FORMAT, $time);
         $xhtml = '
         <p class="mb-0 history-by"><i class="far fa-user"> ' . $by . '</i></p>
         <p class="mb-0 history-time"><i class="far fa-clock"> ' . $time . '</i></p>

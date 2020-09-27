@@ -6,6 +6,7 @@ $action         = $this->arrParam['action'];
 $userInfo	 = Session::get('user')['info'];
 $userName    = $userInfo['username'];
 $groupName   = $userInfo['name'];
+$linkProfile        = URL::createLink($module, 'index', 'profile');
 
 $linkDashboard      = URL::createLink($module, 'dashboard', 'index');
 $linkGroupList      = URL::createLink($module, 'group', 'index');
@@ -18,6 +19,8 @@ $linkBookList       = URL::createLink($module, 'book', 'index');
 $linkBookForm       = URL::createLink($module, 'book', 'form');
 $linkCart           = URL::createLink($module, 'cart', 'index');
 $linkChangePassword = URL::createLink($module, 'user', 'reset_password');
+$linkViewSite       = URL::createLink('frontend', 'index', 'index');
+$linkLogout         = URL::createLink($module, 'index', 'logout');
 
 //dashboard
 $arrDashboard = ['parent' => ['name' => 'Dashboard', 'icon' => 'tachometer-alt','link' => $linkDashboard]
@@ -70,10 +73,20 @@ $arrChangePassWord = ['parent' => ['name' => 'Change Password', 'icon' => 'key',
                 ];
 $changePassword    = HTML::createSidebar($controller,$action,$arrChangePassWord);
 
+// View Site
+$arrViewSite = ['parent' => ['name' => 'View Site', 'icon' => 'eye','link' => $linkViewSite]
+                ];
+$viewSite    = HTML::createSidebar($controller,$action,$arrViewSite);
+
+// View Logout
+$arrLogout = ['parent' => ['name' => 'Logout', 'icon' => 'sign-out-alt','link' => $linkLogout]
+                ];
+$logout    = HTML::createSidebar($controller,$action,$arrLogout);
+
 ?>
 <aside class="main-sidebar sidebar-dark-info elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="<?php echo $linkProfile;?>" class="brand-link">
         <img src="<?php echo $this->_dirImg ?>/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light"><?php echo $userName;?></span>
     </a>
@@ -86,14 +99,14 @@ $changePassword    = HTML::createSidebar($controller,$action,$arrChangePassWord)
                 <img src="<?php echo $this->_dirImg ?>/default-user.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block"><?php echo $groupName . ' ' . $userName;?></a>
+                <a href="<?php echo $linkGroupList;?>" class="d-block"><?php echo $groupName . ' ' . $userName;?></a>
             </div>  
         </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <?php echo $dashboard . $group . $user . $category . $book . $cart . $changePassword; ?>
+                <?php echo $dashboard . $group . $user . $category . $book . $cart . $changePassword . $viewSite . $logout; ?>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

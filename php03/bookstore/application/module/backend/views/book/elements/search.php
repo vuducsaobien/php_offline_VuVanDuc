@@ -5,7 +5,7 @@ $btnClear  = Helper::cmsButton('button', 'Clear', 'btn-clear-search', 'button', 
 $filterCategory	= Helper::cmsSelectbox('filter_category_id', $this->filterCategory, $this->arrParam['filter_category_id'], 'custom-select custom-select-sm mr-1', 'width: unset');
 // $filterSpecial	= Helper::cmsSelectbox('filter_special', $this->filterSpecial, $this->arrParam['filter_special'], 'custom-select custom-select-sm mr-1', 'width: unset');
 
-// SELECT BOX GROUP ACP
+// SELECT BOX
 $arrSpecial = [
     ['name'  => '- Select Special Book -' , 'id' => 'default'],
     ['name'  => 'Yes'                     , 'id' => '1'],

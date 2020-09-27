@@ -36,39 +36,16 @@ class UserController extends BackendController
 			$this->_arrParam['form'] = $this->_model->infoItem($this->_arrParam);
 			if (empty($this->_arrParam['form'])) URL::redirect($this->_arrParam['module'], $this->_arrParam['controller'], 'index');
 		}
-		
-		if ($this->_arrParam['form']['token'] > 0) {
-			$task			= 'add';
-			$requirePass	= true;
-			$queryUserName	= "SELECT `id` FROM `".TBL_USER."` WHERE `username` = '".$this->_arrParam['form']['username']."'";
-			$queryEmail		= "SELECT `id` FROM `".TBL_USER."` WHERE `email` = '".$this->_arrParam['form']['email']."'";
-			if(isset($this->_arrParam['form']['id'])){
-				$task			 = 'edit';
-				$requirePass	 = false;
-				$queryUserName 	.= " AND `id` <> '".$this->_arrParam['form']['id']."'";
-				$queryEmail 	.= " AND `id` <> '".$this->_arrParam['form']['id']."'";
-			}
 
-			$validate = new Validate($this->_arrParam['form']);
-			$validate
-			->addRule('username', 'string-notExistRecord', [
-				'database' => $this->_model, 
-				'query' => $queryUserName, 
-				'min' => 3, 'max' => 25
-			])
-			->addRule('password', 'password', ['action' => $task], $requirePass)
-			->addRule('email', 'email-notExistRecord', [
-				'database' => $this->_model, 
-				'query' => $queryEmail
-				])
-            ->addRule('status', 'status', ['deny' => ['default']])
-            ->addRule('group_id', 'group', ['deny' => ['default']] );
-			$validate->run();
-			
-			$this->_arrParam['form'] = $validate->getResult();
-			if ($validate->isValid() == false) {
-				$this->_view->errors = $validate->showErrors();
+		if ($this->_arrParam['form']['token'] > 0) {
+			$this->_validate->validate($this->_model);
+			$this->_arrParam['form'] = $this->_validate->getResult();
+
+			if (!$this->_validate->isValid()) {
+				$this->_view->errors = $this->_validate->showErrors();
+
 			} else {
+				$task = isset($this->_arrParam['form']['id']) ? 'edit' : 'add';
 				$id = $this->_model->saveItem($this->_arrParam, ['task' => $task]);
 				$this->redirectAfterSave(['id' => $id]);
 			}

@@ -8,30 +8,33 @@ require_once LIBRARY_PATH . 'Model.php';
     $module         = $this->arrParam['module'];
     $controller     = $this->arrParam['controller'];
     $action         = $this->arrParam['action'];
-
     $imageURL       = $this->_dirImg;
-    $linkHome       = URL::createLink('frontend', 'index', 'index');
-    $linkCategory   = URL::createLink('frontend', 'category', 'index');
-    $linkBook       = URL::createLink('frontend', 'book', 'list');
-    $linkCart       = URL::createLink('frontend', 'user', 'cart');
 
+    $linkHome       = URL::createLink('frontend', 'index', 'index', null, 'index.html');
+    $linkCategory   = URL::createLink('frontend', 'category', 'index', null, 'category.html');
+    $linkBook       = URL::createLink('frontend', 'book', 'list', null, 'book.html');
+    $linkCart       = URL::createLink('frontend', 'user', 'cart', null, 'cart.html');
+    $linkMyAccount  = URL::createLink('frontend', 'user', 'index', null, 'my-account.html');
+    $linkAdmin      = URL::createLink('backend', 'dashboard', 'index', null, 'admin.html');
 
-    $linkRegister   = URL::createLink('frontend', 'index', 'register');
-    $linkLogin      = URL::createLink('frontend', 'index', 'login');
-    $linkLogout     = URL::createLink('backend', 'dashboard', 'logout');
+    $linkRegister   = URL::createLink('frontend', 'index', 'register', null, 'register.html');
+    $linkLogin      = URL::createLink('frontend', 'index', 'login', null, 'login.html');
+    // $linkLogout     = URL::createLink('frontend', 'dashboard', 'logout', null, 'logout.html');
+
 
     $arrayMenu		= [];
-    if($userObj['login'] == false){
-        $arrayMenu[] = ['link' => URL::createLink('frontend', 'index', 'login'), 	'name' => 'Đăng nhập'];
-        $arrayMenu[] = ['link' => URL::createLink('frontend', 'index', 'register'), 'name' => 'Đăng ký'];
-    }else{
-        $arrayMenu[] = ['link' => URL::createLink('frontend', 'index', 'logout'),   'name' => 'Logout'];
-        $arrayMenu[] = ['link' => URL::createLink('frontend', 'user', 'index'),   'name' => 'My Acount Form'];
-    }
-
 
     if($userInfo['group_acp'] == 1 && $userInfo['status'] == 'active'){
-        $arrayMenu[] = ['link' => URL::createLink('backend', 'dashboard', 'index'),   'name' => 'Admin Control Panel']; 
+        $arrayMenu[] = ['link' => $linkAdmin,   'name' => 'Admin Control Panel'];
+        // $arrayMenu[] = ['link' => URL::createLink('backend', 'dashboard', 'index'),   'name' => 'Admin Control Panel']; 
+    }
+
+    if($userObj['login'] == false){
+        $arrayMenu[] = ['link' => $linkLogin, 	'name' => 'Đăng nhập'];
+        $arrayMenu[] = ['link' => $linkRegister, 'name' => 'Đăng ký'];
+    }else{
+        $arrayMenu[] = ['link' => $linkMyAccount,   'name' => 'My Acount Form'];
+        $arrayMenu[] = ['link' => URL::createLink('frontend', 'index', 'logout'),      'name' => 'Logout'];
     }
 
     foreach($arrayMenu as $menu){

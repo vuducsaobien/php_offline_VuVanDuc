@@ -1,12 +1,26 @@
 <?php
 class HTML_Frontend
 {
-    public static function showProductBox($product, $showName=true, $showDescription=false, $showDiv=false, $divStart=null ,$divEnd=null)
+    public static function showProductBox($product, $showName=true, $showDescription=false, $showDiv=false, $divStart=null ,$divEnd=null, $typeProduct=null)
     {
-        $bookID     = $product['id'];
-        $categoryID = $product['category_id'];
+        $bookID         = $product['id'];
+        $cateID         = $product['category_id'];
+        $bookNameURL    = URL::filterURL($product['name']);
+        $cateNameURL    = URL::filterURL($product['category_name']);
 
-        $link               = URL::createLink('frontend', 'book', 'index', ['book_id' => $bookID, 'category_id' => $categoryID]);
+        if($typeProduct=='book'){
+                $link = URL::createLink('frontend', 'book', 'index', ['book_id' => $bookID], "$bookNameURL-$bookID.html");
+
+            }elseif($typeProduct=='category'){
+                $link = URL::createLink('frontend', 'book', 'index', ['category_id' => $cateID], "$cateNameURL-$cateID.html");
+                
+            }elseif($typeProduct=='all'){
+                $link               = URL::createLink('frontend', 'book', 'index', ['book_id' => $bookID, 'category_id' => $cateID], 
+                "$cateNameURL/$bookNameURL-$cateID-$bookID.html");
+        }
+
+        // $link               = URL::createLink('frontend', 'book', 'index', ['category_id' => $cateID, 'book_id' => $bookID]);
+
         $price              = self::showPriceProductBox($product['price'], $product['sale_off']);
         
         $shortDescription   = substr($product['description'], 0, 100) .' ...';
@@ -164,7 +178,7 @@ class HTML_Frontend
 
     public static function showBtnQuickView($root=null, $bookID=null)
     {
-        $xhtml = '<a href="#" title="Quick View"><i class="ti-search" data-toggle="modal" data-target="#quick-view"></i></a>';
+        $xhtml = '<a href="#" title="Quick View"><i class="ti-search" data-toggle="modal" data-target="#quick-view" data-id="'.$bookID.'"></i></a>';
         return $xhtml;
     }
 

@@ -36,10 +36,10 @@ class BookController extends BackendController
 			$this->_arrParam['form']['picture'] = $_FILES['picture'];
 		}
 
-	if (isset($this->_arrParam['id']) && !isset($this->_arrParam['form']['token'])) {
-			$this->_view->_title = ucfirst($this->_controllerName) . ' Manager :: Edit';
-			$this->_arrParam['form'] = $this->_model->infoItem($this->_arrParam);
-			if (empty($this->_arrParam['form'])) URL::redirect($this->_arrParam['module'], $this->_arrParam['controller'], 'index');
+		if (isset($this->_arrParam['id']) && !isset($this->_arrParam['form']['token'])) {
+				$this->_view->_title = ucfirst($this->_controllerName) . ' Manager :: Edit';
+				$this->_arrParam['form'] = $this->_model->infoItem($this->_arrParam);
+				if (empty($this->_arrParam['form'])) URL::redirect($this->_arrParam['module'], $this->_arrParam['controller'], 'index');
 		}
 
 		if ($this->_arrParam['form']['token'] > 0) {	
@@ -50,7 +50,7 @@ class BookController extends BackendController
 			$validate = new Validate($this->_arrParam['form']);
 			$validate
 			->addRule('name', 'string', ['min' => 3, 'max' => 255])
-            ->addRule('status', 'status', ['deny' => ['default']])
+			->addRule('status', 'status', ['deny' => ['default']])
 			->addRule('category_id', 'group', ['deny' => array('default')])
 			->addRule('special', 'status', ['deny' => array('default')])
 			->addRule('sale_off', 'int', ['min' => 1, 'max' => 100])
@@ -70,7 +70,7 @@ class BookController extends BackendController
 		$this->_view->arrParam = $this->_arrParam;
 		$this->_view->render($this->_controllerName . '/form');
 	}
-
+	
 	public function ajaxChangeCategoryAction()
     {
         $result = $this->_model->changeCategory($this->_arrParam);
@@ -86,14 +86,14 @@ class BookController extends BackendController
 	// ACTION: MULTI-SPECIAL-ACTIVE
 	public function multi_special_activeAction()
 	{
-		$this->_model->changeStatus($this->_arrParam, ['task' => 'multi-special-active']);
+		$this->_model->bulkAction($this->_arrParam, ['task' => 'multi-special-active']);
 		URL::redirect($this->_moduleName, $this->_controllerName, 'index');
 	}
 	
 	// ACTION: MULTI-SPECIAL-INACTIVE
 	public function multi_special_inactiveAction()
 	{
-		$this->_model->changeStatus($this->_arrParam, ['task' => 'multi-special-inactive']);
+		$this->_model->bulkAction($this->_arrParam, ['task' => 'multi-special-inactive']);
 		URL::redirect($this->_moduleName, $this->_controllerName, 'index');
 	}
 

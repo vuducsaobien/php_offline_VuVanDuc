@@ -24,9 +24,12 @@ class BookModel extends Model
 			$b 		 = '`b`';
 			$tableAs = '`b`';
 
-			$query[] = "SELECT $b.`id`, $b.`name`, $b.`picture`, $b.`sale_off`, $b.`special`, $b.`ordering`, $b.`price`, $b.`description`";
-			$query[] = "FROM `$this->table` AS $b";
-			$query[] = "WHERE $tableAs.`status` = 'active'";
+			$query[] = "SELECT $b.`id`, $b.`name`, $b.`picture`, $b.`sale_off`, $b.`special`, $b.`ordering`, $b.`price`, `b`.`category_id`, $b.`description`
+			, `c`.`name` AS `category_name`";
+
+			$query[]	= "FROM `".TBL_BOOK."` AS `b` LEFT JOIN `".TBL_CATEGORY."` AS `c` ON `b`.`category_id` = `c`.`id`";
+
+			$query[] = "WHERE `b`.`status` = 'active'";
 			$query[] = "ORDER BY $b.`ordering` ASC ";
 		}
 
@@ -65,27 +68,9 @@ class BookModel extends Model
 		}
 
 		if($options['task'] == 'books-news'){
-			// $queryCount[] = "SELECT COUNT(`id`) AS `total_news`";
-			// $queryCount[] = "FROM `".TBL_BOOK."` AS $b";
-			// // $queryCount[] = "WHERE $tableAs.`status` = 'active' AND $b.`special` = 1";
-			// $queryCount[] = "WHERE $b.`status` = 'active' AND $b.`id` <> '$bookID'";
-			// $queryCount[] = "ORDER BY $b.`id` DESC ";
-			// $queryCount[] = "LIMIT 0, 6";
-
-			// $queryCount		= implode(" ", $queryCount);
-			// $resultCount		= $this->fetchRow($queryCount);
-			// $totalNews = $resultCount['total_news'];
-
-			// echo $queryCount		= implode(" ", $queryCount);
-			// echo '<br>';
-			// echo $resultCount		= $this->fetchRow($queryCount);
-			// echo $totalNews = $resultCount['total_news'];
-
-			// $query[] = "SELECT $b.`id`, $b.`name`, $b.`picture`, $b.`sale_off`, $b.`special`, $b.`ordering`, $b.`price`, $b.`description`, COUNT(`id`) AS `total_news`";
 			$query[] = "SELECT $b.`id`, $b.`name`, $b.`picture`, $b.`sale_off`, $b.`special`, $b.`ordering`, $b.`price`, $b.`description`";
 
 			$query[] = "FROM `".TBL_BOOK."` AS $b";
-			// $query[] = "WHERE $tableAs.`status` = 'active' AND $b.`special` = 1";
 			$query[] = "WHERE $b.`status` = 'active' AND $b.`id` <> '$bookID'";
 			$query[] = "ORDER BY $b.`id` DESC ";
 			$query[] = "LIMIT 0, 7";
@@ -149,7 +134,6 @@ class BookModel extends Model
 
 			$query		= implode(" ", $query);
 			$result		= $this->fetchAll($query);
-			// die('<h3>Die is Called</h3>');
 			return $result;
 		}
 
@@ -161,9 +145,9 @@ class BookModel extends Model
 
 			$query		= implode(" ", $query);
 			$result		= $this->fetchRow($query);
-			// die('<h3>Die is Called</h3>');
 			return $result;
 		}
+
 
 	}
 

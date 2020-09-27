@@ -7,22 +7,23 @@ $action     = $this->arrParam['action'];
 $xhtml = '';
 if(!empty($this->listCategory)){
 	foreach($this->listCategory as $item){
-        $bookID     		= $item['id'];
-        $categoryID 		= $item['category_id'];
-		$classImage         = 'img-fluid blur-up lazyload bg-img';
-        $divStartImage      = '<div class="front">';
-        $divEndImage        = '</div>';
-        $srcPicture         = HTML_Frontend::getSrcPicture($item['picture'], TBL_CATEGORY);
-        $link               = URL::createLink($module, 'book', 'list', ['book_id' => $bookID, 'category_id' => $categoryID]);
+		$id 			  = $item['category_id'];
+		$name			  = $item['name'];
+		$nameURL 		  = URL::filterURL($name);
+		$link             = URL::createLink($module, 'book', 'list', ['category_id' => $id], "$nameURL-$id.html");
+		$classImage       = 'img-fluid blur-up lazyload bg-img';
+        $divStartImage    = '<div class="front">';
+        $divEndImage      = '</div>';
+        $srcPicture       = HTML_Frontend::getSrcPicture($item['picture'], TBL_CATEGORY);
 
 		$xhtml .= '
 		<div class="product-box">
 			<div class="img-wrapper">
-				'.HTML_Frontend::showProductImage($link, $srcPicture, $item['name'], $classImage,  true, $divStartImage, $divEndImage).'
+				'.HTML_Frontend::showProductImage($link, $srcPicture, $name, $classImage,  true, $divStartImage, $divEndImage).'
 			</div>
 
 			<div class="product-detail">
-				'.HTML_Frontend::showProductName($link, $item['name'], '4').'
+				'.HTML_Frontend::showProductName($link, $name, '4').'
 			</div>
 		</div>
 		';
@@ -32,9 +33,6 @@ if(!empty($this->listCategory)){
 // Pagination
 $paginationHTML		= $this->pagination->showPaginationPublic(URL::createLink($module, $controller, $action));
 $paginationFrontEnd = HTML_Frontend::createPaginationPublic($this->arrParam['pagination'], $this->totalItems['totalItems']);
-// echo '<pre>';
-// print_r($this->pagination);
-// echo '</pre>';
 ?>
 
 <div class="breadcrumb-section">
@@ -48,6 +46,7 @@ $paginationFrontEnd = HTML_Frontend::createPaginationPublic($this->arrParam['pag
 		</div>
 	</div>
 </div>
+
 <section class="ratio_asos j-box pets-box section-b-space" id="category">
 	<div class="container">
 		<div class="no-slider five-product row">

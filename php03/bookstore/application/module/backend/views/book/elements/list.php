@@ -9,13 +9,12 @@ $btnReload            = Helper::cmsButton('add', null, null, 'button', 'btn btn-
 $btnApply	          = Helper::cmsButton('apply', 'Apply', 'bulk-apply', null,  'btn btn-sm btn-info');
 
 $arrAction = [
-    'default'        => '- Bulk Action -', 
-    'multi-delete'   => 'Multi Delete', 
-    'multi-active'   => 'Multi Active', 
-    'multi-inactive' => 'Multi Inactive',
-    // 'multi-ordering' => 'Multi Ordering'
-    'multi-special-active' => 'Multi Special Active',
-    'multi-special-inactive' => 'Multi Special Inactive',
+    'default'           => '- Bulk Action -', 
+    'multi-delete'      => 'Multi Delete', 
+    'multi-active'      => 'Multi Active', 
+    'multi-inactive'    => 'Multi Inactive',
+    'multi-special'     => 'Multi Special',
+    'multi-unspecial'   => 'Multi UnSpecial'
 ];
 $selectboxAction = Helper::cmsSelectbox('bulk-action', $arrAction, $this->arrParam['bulk-action'], 'custom-select custom-select-sm mr-1', 'width: unset', 'bulk-action');
 $checkAll        = Helper::cmscheckAll($inputCheckAll);
@@ -52,10 +51,7 @@ $checkAll        = Helper::cmscheckAll($inputCheckAll);
                         <th class="text-center">Category</th>
                         <th class="text-center"><?= $lblStatus ;?></th>
                         <th class="text-center"><?= $lblSpecial ;?></th>
-
                         <th class="text-center"><?= $lblOrdering ;?></th>
-                        <th class="text-center"><?= $lblCreated ;?></th>
-                        <!-- <th class="text-center"><?//= $lblModified ;?></th> -->
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>

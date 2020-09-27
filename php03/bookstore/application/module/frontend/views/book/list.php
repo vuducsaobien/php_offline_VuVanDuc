@@ -20,13 +20,24 @@ $paginationFrontEnd = HTML_Frontend::createPaginationPublic($this->arrParam['pag
 
 // NOTICE 1
 // All Books ACTIVE
+// echo '<pre>$this->_arrParam ';
+// print_r($this->_arrParam);
+// echo '</pre>';
+
+// echo '<pre>';
+// print_r($this->booksActive);
+// echo '</pre>';
+
+// echo '<pre>$this->categoryName ';
+// print_r($this->categoryName);
+// echo '</pre>';
+
 if(!empty($this->booksActive)){
 	foreach($this->booksActive as $item){
-        $categoryID    = $item['category_id'];
-        $linkCategory = URL::createLink($module, 'book', 'list', ['category_id' => $categoryID]);
+        
         $divStart       = '<div class="col-xl-3 col-6 col-grid-box">';
         $divEnd         = '</div>';
-        $listBooksActive   .= HTML_Frontend::showProductBox($item, true, false, true, $divStart, $divEnd);
+        $listBooksActive   .= HTML_Frontend::showProductBox($item, true, false, true, $divStart, $divEnd, 'all');
 	}
 }
 
@@ -97,7 +108,7 @@ $booksSpecial = HTML_Frontend::createSlide($this->booksSpecial, 6);
                                     
                                     <div class="product-wrapper-grid" id="my-product-list">
                                         <div class="row margin-res">
-                                            <?php echo $listBooksActive . $listBooksCategory ;?>												
+                                            <?php echo $listBooksActive . $listBooksCategory ;?>									
                                         </div>
                                     </div>
                                     

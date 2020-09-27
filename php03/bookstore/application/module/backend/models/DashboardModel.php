@@ -2,12 +2,9 @@
 
 class DashboardModel extends Model
 {
-	private $_columns = ['id', 'username', 'password', 'email', 'fullname', 'created', 'created_by', 'status', 'group_id', 'modified', 'modified_by'];
-
 	public function __construct()
 	{
 		parent::__construct();
-		$this->setTable(TBL_USER);
 	}
 
 	public function countItem($arrParam, $option = null){

@@ -64,8 +64,7 @@ class IndexController extends Controller{
 					// 'address'	=> $infoUser['address']
 				);
 				Session::set('user', $arraySession);
-				// die('<h3>Die is Called</h3>');
-				URL::redirect('frontend', 'user', 'index');
+				URL::redirect('frontend', 'user', 'index', null, 'my-account.html');
 			} else {
 				$this->_view->errors	= $validate->showErrorsPublic();
 			}
@@ -127,7 +126,7 @@ class IndexController extends Controller{
 	public function logoutAction()
 	{
 		Session::delete('user');
-		URL::redirect($this->_moduleName, $this->_controllerName, 'index');
+		URL::redirect($this->_moduleName, $this->_controllerName, 'index', null, 'index.html');
 		// URL::redirect('frontend', 'index', 'index');
 		// URL::redirect($this->_moduleName, $this->_controllerName, $this->_actionName);
 	}

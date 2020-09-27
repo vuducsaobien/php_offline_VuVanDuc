@@ -26,123 +26,94 @@
         // MESSAGE
         echo HTML::showMessage();
     $searchValue = $this->arrParam['search'] ?? '';
-// echo '<pre>$this->Items ';
-// print_r($this->Items);
-// echo '</pre>';
 $xhtml = '';
 if(!empty($this->Items)){
     foreach($this->Items as $key => $value){
-        echo '<pre>$value ';
-        print_r($value);
-        echo '</pre>';
-        $cartID = $value['id'];
-        $date   = date(TIMEDATE_FORMAT, strtotime($value['date']));
-
+        // echo '<pre>$value ';
+        // print_r($value);
+        // echo '</pre>';
         $arrBookID		= json_decode($value['books']);
         $arrPrice		= json_decode($value['prices']);
         $arrName		= json_decode($value['names']);
         $arrQuantity	= json_decode($value['quantities']);
         $arrPicture		= json_decode($value['pictures']);
-        
-        $tableContent	= '';
+
+        $booksID        = implode(',', $arrBookID);
+        $quantities     = implode(',', $arrQuantity);
+        $prices         = implode(',', $arrPrice);
+
+
+        $cartID = $value['id'];
+        $date   = date(TIMEDATE_FORMAT, strtotime($value['date']));
+
+        $linkStatus     = URL::createLink($module, $controller, 'ajaxChangeStatus', ['id' => $cartID, 'status' => $value['status']]);
+        $status	 	    = HTML::showItemState($linkStatus, $value['status'], true);
+        $arrInfo        = ['Books ID' => $booksID, 'Quantities' => $quantities, 'Total Prices' => $prices];
+        $info           = HTML::createInfo($arrInfo);
+
+        $created        = HTML::showItemHistory($value['username'], $value['date']);
+        $modified       = HTML::showItemHistory($value['modified_by'], $value['modified']);
+
+        $linkEdit       = URL::createLink($module, $controller, 'form', ['id' => $cartID]);
+        $checkbox       = HTML::showItemCheckbox($cartID);
+        $btnAction      = HTML::showActionButton($module, $controller, $id);
+
+
         $totalPrice     = 0;
         foreach($arrBookID as $keyB => $valueB){
-            echo $valueB;
-            echo '<br>';
-            echo $name       = $arrName[$keyB];
-            // echo '<pre>$name ';
-            // print_r($name);
-            // echo '</pre>';
-            echo '<br>';
+            // echo $booksID = $valueB;
+            // $arrayID = implode(',', $valueB);
 
-            // echo $price      = HTML_Frontend::moneyFormat($arrPrice[$keyB]);
-            echo '<br>';
+                // echo '<br>';
+                // echo $name       = $arrName[$keyB];
+                // echo '<pre>$name ';
+                // print_r($name);
+                // echo '</pre>';
+                // echo '<br>';
 
-            // echo $quantity   = $arrQuantity[$keyB];
-            echo '<br>';
+                // echo $price      = HTML_Frontend::moneyFormat($arrPrice[$keyB]);
+                // echo '<br>';
+
+                // echo $quantity   = $arrQuantity[$keyB];
+            // echo '<br>';
 
 
-            $totalPriceBook     = HTML_Frontend::moneyFormat($arrPrice[$keyB] * $arrQuantity[$keyB]);
-            $totalPrice         += $arrPrice[$keyB] * $arrQuantity[$keyB];
-            $totalPriceFormat   = HTML_Frontend::moneyFormat($totalPrice);
+            // $totalPriceBook     = HTML_Frontend::moneyFormat($arrPrice[$keyB] * $arrQuantity[$keyB]);
+            //     $totalPrice         += $arrPrice[$keyB] * $arrQuantity[$keyB];
+            //     $totalPriceFormat   = HTML_Frontend::moneyFormat($totalPrice);
 
-            $filePicture    = $arrPicture[$keyB];
-            $folder         = TBL_BOOK;
-            $pictureDefault = UPLOAD_URL . $folder . DS . '98x150-default.jpg';
-            $picturePath 	= UPLOAD_URL . $folder . DS . $filePicture;
-    
-            $picture = $picturePath;
-            if(!file_exists($picturePath)) $picture = $pictureDefault;
-            
-            $tableContent .= '
-               
-            ';
+            //     $filePicture    = $arrPicture[$keyB];
+            //     $folder         = TBL_BOOK;
+            //     $pictureDefault = UPLOAD_URL . $folder . DS . '98x150-default.jpg';
+            //     $picturePath 	= UPLOAD_URL . $folder . DS . $filePicture;
+        
+            //     $picture = $picturePath;
+            // if(!file_exists($picturePath)) $picture = $pictureDefault;
+
+            //
+            // $id 		    = $item['id'];
+            // $ordering       = $item['ordering'];
+
         }
 
-        $xhtml .= '
-            
+        $xhtml         .= '
+        <tr>
+            <td class="text-center">'.$checkbox.'</td>
+            <td class="text-center">'.$cartID.'</td>
+            <td class="text-center"><a href="'.$linkEdit.'">'.$userName.'</a></td>
+            <td class="text-center position-relative">'.$status.'</td>
+            <td>'.$info.'</td>
+
+            <td class="text-center">'.$created.'</td>
+            <td class="text-center">'.$modified.'</td>
+              
+            <td class="text-center">' . $btnAction . '</td>
+        </tr>
         ';
 
-
-
     }
-}else{
-    $xhtml = '
-        <section class="p-0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="error-section">
-                            <h4>Bạn chưa mua sắm gì cả ??</h4>
-                            <a href="index.php?module=frontend&controller=index&action=index" class="btn btn-solid">Quay lại trang chủ</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    ';
 }
-// if(!empty($this->Items)){
-    //     foreach($this->Items as $item){
-    //         // echo '<pre>$item ';
-    //         // print_r($item);
-    //         // echo '</pre>';
-    //         $id 		    = $item['id'];
-    //         $ordering       = $item['ordering'];
-    //         $linkEdit       = URL::createLink($module, $controller, 'form', ['id' => $id]);
-    //         $checkbox       = HTML::showItemCheckbox($id);
 
-    //         $resultBooksID       = Helper::highLight($searchValue, $item['id']);
-    //         $resultBooksName     = Helper::highLight($searchValue, $item['name']);
-    //         $booksPrice            ;
-
-    //         $linkStatus     = URL::createLink($module, $controller, 'ajaxChangeStatus', ['id' => $id, 'status' => $item['status']]);
-    //         $status	 	    = HTML::showItemState($linkStatus, $item['status']);
-
-    //         $arrInfo        = ['Books ID' => $resultBooksID, 'Quantities' => $resultBooksName, 'Total Prices' => $resultEmail];
-    //         $info           = HTML::createInfo($arrInfo);
-
-    //         $created        = HTML::showItemHistory($item['created_by'], $item['created']);
-    //         $modified     = HTML::showItemHistory($item['modified_by'], $item['modified']);
-
-
-    //         $btnAction      = HTML::showActionButton($module, $controller, $id);
-    //         $xhtml         .= '
-    //         <tr>
-    //             <td class="text-center">'.$checkbox.'</td>
-    //             <td class="text-center">'.$resultID.'</td>
-    //             <td class="text-center"><a href="'.$linkEdit.'">'.$resultName.'</a></td>
-
-    //             <td class="text-center position-relative">'.$status.'</td>
-    //             <td>'.$info.'</td>
-    //             <td class="text-center position-relative">'.$modified.'</td>
-
-    //             <td class="text-center">'.$created.'</td>                
-    //             <td class="text-center">' . $btnAction . '</td>
-    //         </tr>
-    //         ';
-    //     }
-    // }
 ?>
 <!-- Search & Filter -->
 <?php require_once 'elements/search.php' ;?>

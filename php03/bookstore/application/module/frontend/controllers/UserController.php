@@ -25,23 +25,7 @@ class UserController extends Controller
 		}
 
 		if ($this->_arrParam['form']['token'] > 0) {
-			// $validate = new Validate($this->_arrParam['form']);
-			// $validate
-			// 	->addRule('fullname', 'string', ['min' => 3, 'max' => 255] )
-			// 	->addRule('address', 'string', ['min' => 3, 'max' => 255] )
-			// 	->addRule('phone', 'int', ['min' => 3, 'max' => 12] );
-			// $validate->run();
-			
-			// $this->_arrParam['form'] = $validate->getResult();
-			// if ($validate->isValid() == false) {
-			// 	$this->_view->errors = $validate->showErrors();
-			// } else {
-				$this->_model->saveItem($this->_arrParam, ['task' => 'edit']);
-				// $this->redirectAfterSave(['id' => $id]);
-				// if ($this->_arrParam['type'] == 'save-close')   URL::redirect($this->_moduleName, $this->_controllerName, 'index');
-				// if ($this->_arrParam['type'] == 'save-new')     URL::redirect($this->_moduleName, $this->_controllerName, 'form');
-				// if ($this->_arrParam['type'] == 'save')         URL::redirect($this->_moduleName, $this->_controllerName, 'form', ['id' => $params['id']]);		
-			// }
+			$this->_model->saveItem($this->_arrParam, ['task' => 'edit']);
 		}
 
 
@@ -66,7 +50,7 @@ class UserController extends Controller
 			$validate
 				->addRule('fullname', 'string', ['min' => 3, 'max' => 255] )
 				->addRule('address', 'string', ['min' => 3, 'max' => 255] )
-				->addRule('phone', 'int', ['min' => 3, 'max' => 12] );
+				->addRule('phone', 'string', ['min' => 3, 'max' => 12] );
 			$validate->run();
 			
 			$this->_arrParam['form'] = $validate->getResult();
@@ -111,9 +95,6 @@ class UserController extends Controller
 	}
 
 	public function cartAction(){
-		// echo '<pre>';
-		// print_r($_SESSION);
-		// echo '</pre>';
 		$this->_view->_title	= 'My Cart';
 		$this->_view->Items		= $this->_model->listItem($this->_arrParam, ['task' => 'books-in-cart']);
 		$this->_view->render('user/cart');

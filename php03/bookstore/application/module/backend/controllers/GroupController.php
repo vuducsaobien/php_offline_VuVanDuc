@@ -53,14 +53,6 @@ class GroupController extends BackendController
 		// $this->_view->render($this->_controllerName . '/form');
 		$this->_view->render("{$this->_controllerName}/form");
 	}
-
-	public function ajaxChangeStatusAction()
-    {
-		$result = $this->_model->ajaxChangeStatusLib($this->_arrParam);
-		echo json_encode($result);
-
-    }
-
 	
 	public function ajaxOrderingAction()
     {

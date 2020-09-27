@@ -14,26 +14,48 @@ class BackendController extends Controller{
 		$this->_actionName 		= $this->_arrParam['action'];
 	}
 
+	public function ajaxChangeStatusAction()
+    {
+		$result = $this->_model->ajaxChangeState($this->_arrParam);
+		echo json_encode($result);
+    }
+
 	// ACTION: MULTI-ACTIVE
 	public function multi_activeAction()
 	{
-		$this->_model->changeStatus($this->_arrParam, ['task' => 'multi-active']);
+		$this->_model->bulkAction($this->_arrParam, ['task' => 'multi-active']);
 		URL::redirect($this->_moduleName, $this->_controllerName, 'index');
 	}
 
 	// ACTION: MULTI-INACTIVE
 	public function multi_inactiveAction()
 	{
-		$this->_model->changeStatus($this->_arrParam, ['task' => 'multi-inactive']);
+		$this->_model->bulkAction($this->_arrParam, ['task' => 'multi-inactive']);
 		URL::redirect($this->_moduleName, $this->_controllerName, 'index');
 	}
 
 	// ACTION: MULTI-DELETE
 	public function multi_deleteAction()
 	{
-		$this->_model->deleteItem($this->_arrParam);
+		$this->_model->deleteItem($this->_arrParam, ['task' => 'multi-delete']);
 		URL::redirect($this->_moduleName, $this->_controllerName, 'index');
 	}
+
+	// ACTION: MULTI-SPECIAL
+	public function multi_specialAction()
+	{
+		$this->_model->bulkAction($this->_arrParam, ['task' => 'multi-special']);
+		URL::redirect($this->_moduleName, $this->_controllerName, 'index');
+	}
+
+	// ACTION: MULTI-UNSPECIAL
+	public function multi_unspecialAction()
+	{
+		$this->_model->bulkAction($this->_arrParam, ['task' => 'multi-unspecial']);
+		URL::redirect($this->_moduleName, $this->_controllerName, 'index');
+	}
+	
+	
 	
 	public function redirectAfterSave($params)
     {

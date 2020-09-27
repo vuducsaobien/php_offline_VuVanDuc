@@ -25,9 +25,8 @@ $imageURL   = $this->_dirImg;
 // Books RELATE
 if(!empty($this->bookRelate)){
 	foreach($this->bookRelate as $item){
-        $categoryID    = $item['category_id'];
-        $linkCategory   = "index.php?module=$module&controller=book&action=list&category_id=$categoryID";
-        $linkCategory   = URL::createLink($module, 'book', 'list', ['category_id' => $categoryID]);
+        $cateID         = $item['category_id'];
+        $linkCategory   = URL::createLink($module, 'book', 'list', ['category_id' => $cateID]);
 
         $divStart       = '<div class="col-xl-2 col-md-4 col-sm-6">';
         $divEnd         = '</div>';

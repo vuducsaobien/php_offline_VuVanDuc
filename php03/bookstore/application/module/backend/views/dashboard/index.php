@@ -10,15 +10,14 @@ $linkViewSite = URL::createLink('frontend', 'index', 'index');
 
 $imageURL	= $this->_dirImg;
 $arrMenu	= array(
-// array('link' => URL::createLink($module, 'book', 'add')			, 'name' => 'Add new book'		, 'image' => 'icon-48-article-add'),
-['link' => URL::createLink($module, 'group', 'index')		, 'name' => 'Group manager'		, 'count' => $item['group']		, 'icon' => 'ion ion-ios-people'],
-['link' => URL::createLink($module, 'user', 'index')		, 'name' => 'User manager'		, 'count' => $item['user']		, 'icon' => 'ion ion-ios-person'],
-['link' => URL::createLink($module, 'category', 'index')	, 'name' => 'Category manager'	, 'count' => $item['category']	, 'icon' => 'ion ion-clipboard'],
-['link' => URL::createLink($module, 'book', 'index')		, 'name' => 'Book manager'		, 'count' => $item['book']		, 'icon' => 'ion ion-ios-book']
+	['link' => URL::createLink($module, 'group', 'index')		, 'name' => 'Group manager'		, 'count' => $item['group']		, 'icon' => 'ion ion-ios-people'],
+	['link' => URL::createLink($module, 'user', 'index')		, 'name' => 'User manager'		, 'count' => $item['user']		, 'icon' => 'ion ion-ios-person'],
+	['link' => URL::createLink($module, 'category', 'index')	, 'name' => 'Category manager'	, 'count' => $item['category']	, 'icon' => 'ion ion-clipboard'],
+	['link' => URL::createLink($module, 'book', 'index')		, 'name' => 'Book manager'		, 'count' => $item['book']		, 'icon' => 'ion ion-ios-book'],
+	['link' => URL::createLink($module, 'cart', 'index')		, 'name' => 'Cart manager'		, 'count' => $item['cart']		, 'icon' => 'ion ion-ios-cart']
 );
 
 foreach($arrMenu as $value){
-	// $image	= $imageURL .'/header/'.$value['image'].'.png';
 	$xhtml .= '
 	<div class="col-lg-3 col-6">
 		<div class="small-box bg-info">
@@ -38,14 +37,4 @@ foreach($arrMenu as $value){
 
 <div class="row justify-content-center">
 	<?php echo $xhtml;?>
-
-	<a href="<?php echo $linkLogout ;?>" class="small-box-footer">Logout
-	<i class="fas fa-sign-out-alt"></i></a>
-
-	<p> <---------> </p>
-
-	<a href="<?php echo $linkViewSite ;?>" class="small-box-footer">View Site
-	<i class="far fa-eye"></i></a>
-
-
 </div>

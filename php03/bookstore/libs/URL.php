@@ -2,7 +2,8 @@
 class URL{
 	
 	public static function createLink($module, $controller, $action, $params = null, $router = null){
-		// if(!empty($router)) return ROOT_URL . $router;
+		if(!empty($router)) return ROOT_URL . $router;
+		// if(!empty($router)) return $router;
 		$linkParams = '';
 		if(!empty($params)){
 			foreach ($params as $key => $value){
@@ -28,18 +29,6 @@ class URL{
 			Session::set('token', $value);
 		}
 	}
-	
-
-
-
-
-
-
-
-
-	
-
-
 
 	private function removeSpace($value){
 		$value = trim($value);
@@ -55,9 +44,18 @@ class URL{
 	}
 	
 	private static function removeCircumflex($value){
-		/*a à ả ã á ạ ă ằ ẳ ẵ ắ ặ â ầ ẩ ẫ ấ ậ b c d đ e è ẻ ẽ é ẹ ê ề ể ễ ế ệ
-		 f g h i ì ỉ ĩ í ị j k l m n o ò ỏ õ ó ọ ô ồ ổ ỗ ố ộ ơ ờ ở ỡ ớ ợ
-		p q r s t u ù ủ ũ ú ụ ư ừ ử ữ ứ ự v w x y ỳ ỷ ỹ ý ỵ z*/
+		/*a 
+			à ả ã á ạ ă ằ ẳ ẵ ắ ặ â ầ ẩ ẫ ấ ậ
+			b c d đ 
+			e è ẻ ẽ é ẹ ê ề ể ễ ế ệ
+			f g h 
+			i ì ỉ ĩ í ị 
+			j k l m n 
+			o ò ỏ õ ó ọ ô ồ ổ ỗ ố ộ ơ ờ ở ỡ ớ ợ
+			p q r s t 
+			u ù ủ ũ ú ụ ư ừ ử ữ ứ ự 
+			v w x y ỳ ỷ ỹ ý ỵ z
+		*/
 		$value		= strtolower($value);
 		
 		$characterA	= '#(a|à|ả|ã|á|ạ|ă|ằ|ẳ|ẵ|ắ|ặ|â|ầ|ẩ|ẫ|ấ|ậ)#imsU';
@@ -96,7 +94,6 @@ class URL{
 		return $value;
 		
 	}
-	
 	
 	public static function filterURL($value){
 		//$value = URL::removeSpace($value);

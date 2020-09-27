@@ -14,9 +14,7 @@ $rowEmail      = HTML_Frontend::cmsRowForm('Email', $inputEmail, false, 'email',
 $rowPassword   = HTML_Frontend::cmsRowForm('Mật Khẩu', $inputPassword, false, 'password', 'required', 'form-group');
 
 // Button
-// $linkRegister   = URL::createLink('frontend', 'index', 'register');
-// $linkAction    = URL::createLink('frontend', 'index', 'login');
-$linkRegister   = URL::createLink($module, $controller, 'register');
+$linkRegister   = URL::createLink($module, $controller, 'register', null, 'register.html');
 $linkAction    = URL::createLink($module, $controller, $action);
 ?>
 <div class="breadcrumb-section">
@@ -24,8 +22,7 @@ $linkAction    = URL::createLink($module, $controller, $action);
         <div class="row">
             <div class="col-12">
                 <div class="page-title">
-                    <h2 class="py-2">
-                        Đăng nhập </h2>
+                    <h2 class="py-2">Đăng nhập </h2>
                 </div>
             </div>
         </div>

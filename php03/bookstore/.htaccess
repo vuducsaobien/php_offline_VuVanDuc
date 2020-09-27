@@ -4,12 +4,18 @@ RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
 
-RewriteRule		index.html 			index.php?module=default&controller=index&action=index
-RewriteRule		category.html 		index.php?module=default&controller=category&action=index
-RewriteRule		register.html 		index.php?module=default&controller=index&action=register
-RewriteRule		login.html 			index.php?module=default&controller=index&action=login
-RewriteRule		cart.html 			index.php?module=default&controller=user&action=cart
-RewriteRule		my-account.html 	index.php?module=default&controller=user&action=index
-RewriteRule		history.html 		index.php?module=default&controller=user&action=history
-RewriteRule		([A-Za-z0-9_-]+)-([0-9]+)\.html 		index.php?module=default&controller=book&action=list&category_id=$2
-RewriteRule		([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)-([0-9]+)-([0-9]+)\.html 		index.php?module=default&controller=book&action=detail&category_id=$3&book_id=$4
+RewriteRule		index.html 			index.php?module=frontend&controller=index&action=index
+RewriteRule		category.html 		index.php?module=frontend&controller=category&action=index
+RewriteRule		register.html 		index.php?module=frontend&controller=index&action=register
+RewriteRule		login.html 			index.php?module=frontend&controller=index&action=login
+RewriteRule		cart.html 			index.php?module=frontend&controller=user&action=cart
+RewriteRule		my-account.html 	index.php?module=frontend&controller=user&action=index
+RewriteRule		history.html 		index.php?module=frontend&controller=user&action=history
+RewriteRule		book.html 		    index.php?module=frontend&controller=book&action=list
+
+RewriteRule		admin.html 		    index.php?module=backend&controller=dashboard&action=index
+
+
+RewriteRule		([A-Za-z0-9_-]+)-([0-9]+)\.html 	                        index.php?module=frontend&controller=book&action=list&category_id=$2
+
+RewriteRule		([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)-([0-9]+)-([0-9]+)\.html	index.php?module=frontend&controller=book&action=index&category_id=$3&book_id=$4

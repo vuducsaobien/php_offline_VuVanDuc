@@ -15,10 +15,6 @@
         $lblStatus		= Helper::cmsLinkSort('Status', 'status', $columnPost, $orderPost);
         $lblSpecial		= Helper::cmsLinkSort('Special', 'special', $columnPost, $orderPost);
         $lblOrdering	= Helper::cmsLinkSort('Ordering', 'ordering', $columnPost, $orderPost);
-        $lblCreated		= Helper::cmsLinkSort('Created', 'created', $columnPost, $orderPost);
-        $lblCreatedBy	= Helper::cmsLinkSort('Created By', 'created_by', $columnPost, $orderPost);
-        // $lblModified	= Helper::cmsLinkSort('Modified', 'modified', $columnPost, $orderPost);
-        // $lblModifiedBy	= Helper::cmsLinkSort('Modified By', 'modified_by', $columnPost, $orderPost);
         // Pagination
         $paginationHTML		= $this->pagination->showPagination(URL::createLink($module, $controller, $action));
         
@@ -46,14 +42,11 @@
             $slbCategory	= Helper::cmsSelectbox('slb_category_id', $this->filterCategory, $item['category_id'], 'custom-select custom-select-sm mr-1', 'width: unset', $id, $id);
             
             $linkStatus     = URL::createLink($module, $controller, 'ajaxChangeStatus', ['id' => $id, 'status' => $item['status']]);
-            $status	 	    = HTML::showItemState($linkStatus, $item['status']);
+            $status	 	    = HTML::showItemState($linkStatus, $item['status'], true);
             $linkSpecial    = URL::createLink($module, $controller, 'ajaxChangeStatus', ['id' => $id, 'special' => $item['special']]);
-            $special	 	= HTML::showItemState($linkSpecial, $item['special']);
+            $special	 	= HTML::showItemState($linkSpecial, $item['special'], true);
             
             $inputOrdering  = Helper::cmsInput('number', "chkOrdering['$id']", $id, 'chkOrdering form-control form-control-sm m-auto text-center', $ordering, null, 'width: 65px', null, $id);
-            $created        = HTML::showItemHistory($item['created_by'], $item['created']);
-            // $modified       = HTML::showItemHistory($item['modified_by'], $item['modified']);
-
             $btnAction      = HTML::showActionButton($module, $controller, $id);
             $xhtml         .= '
             <tr>
@@ -69,7 +62,6 @@
                 <td class="text-center position-relative">'.$special.'</td>
 
                 <td class="text-center position-relative">'.$inputOrdering.'</td>
-                <td class="text-center">'.$created.'</td>
                 <td class="text-center">' . $btnAction . '</td>
             </tr>
             ';

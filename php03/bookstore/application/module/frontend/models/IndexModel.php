@@ -91,6 +91,15 @@ class IndexModel extends Model
 			$b 		 = '`b`';
 			$c 		 = '`c`';
 
+			// $query[] = "SELECT $c.`id` AS `category_id`, $c.`name`";
+			// $query[] = "FROM `".TBL_CATEGORY."` AS $c";
+			// $query[] = "WHERE $tableAs.`status` = 'active' AND $c.`special` = 1";
+			// $query[] = "ORDER BY $c.`ordering` ASC ";
+			// $query[] = "LIMIT 0, 3";
+			// $query	 = implode(" ", $query);
+			// $temp	 = $this->fetchAll($query);
+			
+
 			$listCategorySpecial    = $this->listCategory(null);
             $arrCategorySpecial   = [];
             foreach($listCategorySpecial as $category)
@@ -105,18 +114,18 @@ class IndexModel extends Model
                 {
                     $query   = [];
 					$query[] = "SELECT *";
-					$query[] = "FROM `".TBL_BOOK."` AS `b`";
-					$query[] = "WHERE `b`.`category_id` = '{$item['category_id']}'";
-					$query[] = "AND `b`.`status` = 'active'";
+					$query[] = "FROM `".TBL_BOOK."` AS $b";
+					$query[] = "WHERE $b.`category_id` = '{$item['category_id']}'";
+					$query[] = "AND $b.`status` = 'active'";
 					$query[] = "ORDER BY $b.`ordering` ASC";
-					$query[] = "LIMIT 0, 8";
+					$query[] = "LIMIT 0, 1";
 
 					$query	 = implode(" ", $query);
 					$temp	 = $this->fetchAll($query);
                     $arrCategorySpecial[$key]['listBooks'] = $temp;
 				}
 			}
-			unset($arrTemp);
+			// unset($arrTemp);
 			return $arrCategorySpecial;
 		}
 

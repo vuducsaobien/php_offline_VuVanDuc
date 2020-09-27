@@ -43,8 +43,8 @@ if(!empty($this->Items)){
             $info           = HTML::createInfo($arrInfo);
 
             $slbGroup	    = Helper::cmsSelectbox('slb_group_id', $this->filterGroup, $item['group_id'], 'custom-select custom-select-sm mr-1', 'width: unset', $id, $id);
-            $linkStatus     = URL::createLink($module, $controller, 'changeStatus', ['id' => $id, 'status' => $item['status']]);
-            $status	 	    = HTML::showItemState($linkStatus, $item['status']);
+            $linkStatus     = URL::createLink($module, $controller, 'ajaxChangeStatus', ['id' => $id, 'status' => $item['status']]);
+            $status	 	    = HTML::showItemState($linkStatus, $item['status'], true);
 
             $created      = HTML::showItemHistory($item['created_by'], $item['created']);
             $modified     = HTML::showItemHistory($item['modified_by'], $item['modified']);
@@ -57,7 +57,7 @@ if(!empty($this->Items)){
                 <td class="text-center">'.$resultID.'</td>
                 <td>'.$info.'</td>
                 <td class="text-center position-relative">'.$slbGroup.'</td>
-                <td class="text-center">'.$status.'</td>
+                <td class="text-center position-relative">'.$status.'</td>
                 <td class="text-center">'.$created.'</td>
                 <td class="text-center modified-'.$id.'">'.$modified.'</td>
                 <td class="text-center">'.$btnAction.'</td>

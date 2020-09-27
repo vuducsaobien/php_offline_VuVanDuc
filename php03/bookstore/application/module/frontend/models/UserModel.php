@@ -98,7 +98,7 @@ class UserModel extends Model
 			
 			$query	= "INSERT INTO `".TBL_CART."`(
 					`id`, `username`, `books`, `prices`, `quantities`, `names`, `pictures`, `status`, `date`)
-			VALUES ('$id', '$username', '$books', '$prices', '$quantities', '$names', '$pictures', 'inactive', '$date')";
+			VALUES ('$id', '$username', '$books', '$prices', '$quantities', '$names', '$pictures', 'inactive', '$date', 'null', '$username')";
 			$this->query($query);
 			Session::delete('cart');
 		}

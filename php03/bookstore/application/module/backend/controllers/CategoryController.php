@@ -11,7 +11,7 @@ class CategoryController extends BackendController
 	{
 		$this->_view->_title 		= ucfirst($this->_controllerName) . ' Manager :: List';
 		$totalItems					= $this->_model->countItem($this->_arrParam);
-		$configPagination = ['totalItemsPerPage' => 20, 'pageRange' => 3];
+		$configPagination = ['totalItemsPerPage' => 5, 'pageRange' => 3];
 		$this->setPagination($configPagination);
 		$this->_view->pagination	= new Pagination($totalItems, $this->_pagination);
 		$this->_view->countActive 	= $this->_model->countItem($this->_arrParam, ['task' => 'count-active']);
@@ -25,7 +25,7 @@ class CategoryController extends BackendController
 	public function formAction()
 	{
 		$this->_view->_title 	 = ucfirst($this->_controllerName) . ' Manager :: Add';
-		
+
 		if(!empty($_FILES)) {
 			$this->_arrParam['form']['picture'] = $_FILES['picture'];
 		}
@@ -37,7 +37,6 @@ class CategoryController extends BackendController
 		}
 
 		if ($this->_arrParam['form']['token'] > 0) {
-				
 				$validate = new Validate($this->_arrParam['form']);
 				$validate
 					->addRule('name', 'string', ['min' => 3, 'max' => 255] )
@@ -45,7 +44,7 @@ class CategoryController extends BackendController
 					->addRule('ordering', 'int', ['min' => 1, 'max' => 100] )
 					->addRule('picture', 'file', ['min' => 100, 'max' => 1000000000, 'extension' => ['jpg', 'jpeg', 'png']], false);
 				$validate->run();
-				
+
 				$this->_arrParam['form'] = $validate->getResult();
 				if ($validate->isValid() == false) {
 					$this->_view->errors = $validate->showErrors();
@@ -61,12 +60,6 @@ class CategoryController extends BackendController
 			$this->_view->render("{$this->_controllerName}/form");
 	}
 	
-	public function ajaxChangeStatusAction()
-    {
-		$result = $this->_model->ajaxChangeStatusLib($this->_arrParam);
-        echo json_encode($result);
-    }
-
 	public function ajaxOrderingAction()
     {
 		$result = $this->_model->ajaxOrdering($this->_arrParam);

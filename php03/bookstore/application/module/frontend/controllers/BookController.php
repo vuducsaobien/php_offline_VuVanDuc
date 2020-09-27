@@ -30,6 +30,8 @@ class BookController extends Controller
 			$this->_view->pagination	= new Pagination($totalItems, $this->_pagination);
 
 			$this->_view->booksCategory = $this->_model->listItem($this->_arrParam, ['task' => 'books-category']);
+
+			// $this->_view->categoryName 	= $this->_model->infoItem($this->_arrParam, ['task' => 'get-cate-name']);
 		}else{
 			$title 		= ucfirst($this->_controllerName) . ' || ' . ucfirst($this->_actionName);
 
