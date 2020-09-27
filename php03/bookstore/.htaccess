@@ -19,3 +19,4 @@ RewriteRule		admin.html 		    index.php?module=backend&controller=dashboard&acti
 RewriteRule		([A-Za-z0-9_-]+)-([0-9]+)\.html 	                        index.php?module=frontend&controller=book&action=list&category_id=$2
 
 RewriteRule		([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)-([0-9]+)-([0-9]+)\.html	index.php?module=frontend&controller=book&action=index&category_id=$3&book_id=$4
+

@@ -22,7 +22,7 @@
             $action .= '&id='.$this->arrParam['id'];
             $inputID            = Helper::cmsInput('text', 'form[id]', 'form[id]', 'form-control form-control-sm', $dataForm['id'], null, null, 'readonly');
             $rowID              = Helper::cmsRowForm('ID', $inputID, false, 'id', 'col-sm-2 col-form-label text-sm-right');
-            $picture            = '<img src="'.UPLOAD_URL . $controller . DS . '60x90-' . $dataForm['picture'].'">';
+            $picture            = '<img src="'.URL_UPLOAD . $controller . DS . '60x90-' . $dataForm['picture'].'">';
             $inputHiddenPicture = Helper::cmsInput('hidden', 'form[hidden_picture]', 'hidden_picture', 'form-control form-control-sm', $dataForm['picture'], null, null);
         }
 

@@ -127,7 +127,7 @@ class Helper
 	{
 		$order	= ($orderPost == 'desc') ? 'asc' : 'desc';
 		if ($column == $columnPost) {
-			$img	= '<img style="width: 30px;" src="' . TEMPLATE_URL . 'admin/adminlte/images/sort-' . $orderPost . '.png">';
+			$img	= '<img style="width: 30px;" src="' . URL_TEMPLATE . 'admin/adminlte/images/sort-' . $orderPost . '.png">';
 		}
 		$xhtml = '<a href="#" onclick="javascript:sortList(\'' . $column . '\',\'' . $order . '\')">' . $name . $img . '</a>';
 		return $xhtml;

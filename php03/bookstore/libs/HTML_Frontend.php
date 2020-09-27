@@ -60,9 +60,14 @@ class HTML_Frontend
 
     public static function showProductMedia($product, $showName=true, $showDescription=false, $showDiv=false, $divStart='<div>' ,$divEnd='</div>')
     {
-        $bookID             = $product['id'];
-        $categoryID         = $product['category_id'];
-        $link               = URL::createLink('frontend', 'book', 'index', ['book_id' => $bookID, 'category_id' => $categoryID]);
+        $bookID         = $product['id'];
+        $cateID         = $product['category_id'];
+        $bookNameURL    = URL::filterURL($product['name']);
+        $cateNameURL    = URL::filterURL($product['category_name']);
+
+        $link               = URL::createLink('frontend', 'book', 'index', ['book_id' => $bookID, 'category_id' => $cateID], 
+        "$cateNameURL/$bookNameURL-$cateID-$bookID.html");
+
         $shortDescription   = substr($product['description'], 0, 100) .' ...';
         $shortDescription   = $showDescription ? self::showShortDescription($shortDescription) : '';
         $productName        = $showName ? self::showProductName($link, $product['name']) : '';
@@ -108,6 +113,33 @@ class HTML_Frontend
         return $xhtml;
     }
 
+    public static function showProductImage($link, $srcPicture, $name, $classImage, $showDiv=false, $divStartImage=null, $divEndImage=null, $style=null)
+    {
+        $style  = ($style != null) ? 'style="'.$style.'"' : '';
+
+        $xhtml = '
+            <a href="'.$link.'">
+                <img src="'.$srcPicture.'" class="'.$classImage.'" 
+                alt="'.$name.'" title="'.$name.' '.$style.'">
+            </a>
+        ';
+        if($showDiv==true) $xhtml = $divStartImage.$xhtml.$divEndImage;
+        return $xhtml;
+    }
+
+    public static function getSrcPicture($filePicture, $folder)
+    {
+        $pictureDefault = URL_UPLOAD . $folder . DS . '98x150-default.jpg';
+        $picturePath 	= URL_UPLOAD . $folder . DS . $filePicture;
+
+        $picture = $picturePath;
+        if(!file_exists($picturePath)) $picture = $pictureDefault;
+        // echo $picturePath . '<br>';
+        // echo '---------';
+        // echo $picture . '<br>';
+
+        return $picture;
+    }
 
     public static function showPriceProductBox($price, $saleOff)
     {
@@ -130,30 +162,6 @@ class HTML_Frontend
             </a>
         ";
         return $xhtml;
-    }
-
-    public static function showProductImage($link, $srcPicture, $name, $classImage, $showDiv=false, $divStartImage=null, $divEndImage=null, $style=null)
-    {
-        $style  = ($style != null) ? 'style="'.$style.'"' : '';
-
-        $xhtml = '
-            <a href="'.$link.'">
-                <img src="'.$srcPicture.'" class="'.$classImage.'" 
-                alt="'.$name.'" title="'.$name.' '.$style.'">
-            </a>
-        ';
-        if($showDiv==true) $xhtml = $divStartImage.$xhtml.$divEndImage;
-        return $xhtml;
-    }
-
-    public static function getSrcPicture($filePicture, $folder)
-    {
-        $pictureDefault = UPLOAD_URL . $folder . DS . '98x150-default.jpg';
-        $picturePath 	= UPLOAD_URL . $folder . DS . $filePicture;
-
-        $picture = $picturePath;
-        if(!file_exists($picturePath)) $picture = $pictureDefault;
-        return $picture;
     }
 
     public static function showSaleOffLabel($saleOff)

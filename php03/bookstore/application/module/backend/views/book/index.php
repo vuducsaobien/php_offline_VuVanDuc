@@ -31,10 +31,10 @@
             $resultID       = Helper::highLight($searchValue, $item['id']);
             $resultName     = Helper::highLight($searchValue, $item['name']);
 
-            $picture        = '<img src="'.UPLOAD_URL . $controller . DS . '98x150-' . $item['picture'].'">';
+            $picture        = '<img src="'.URL_UPLOAD . $controller . DS . '98x150-' . $item['picture'].'">';
             $picturePath    = UPLOAD_PATH . $controller . DS . '98x150-' . $item['picture'];
             if(!file_exists($picturePath)){
-                $picture    = '<img src="'.UPLOAD_URL . $controller . DS . '98x150-default.jpg' .'">';
+                $picture    = '<img src="'.URL_UPLOAD . $controller . DS . '98x150-default.jpg' .'">';
             }
 
             $price          = number_format($item['price'], 0, ',', '.') . MONEY_VALUE;

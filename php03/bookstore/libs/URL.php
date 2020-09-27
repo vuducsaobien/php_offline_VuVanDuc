@@ -2,7 +2,7 @@
 class URL{
 	
 	public static function createLink($module, $controller, $action, $params = null, $router = null){
-		if(!empty($router)) return ROOT_URL . $router;
+		if(!empty($router)) return URL_ROOT . $router;
 		// if(!empty($router)) return $router;
 		$linkParams = '';
 		if(!empty($params)){
@@ -11,7 +11,7 @@ class URL{
 			}
 		}
 		
-		$url = ROOT_URL . 'index.php?module='.$module.'&controller='.$controller.'&action='.$action . $linkParams;
+		$url = URL_ROOT . 'index.php?module='.$module.'&controller='.$controller.'&action='.$action . $linkParams;
 		return $url;
 	} 
 	

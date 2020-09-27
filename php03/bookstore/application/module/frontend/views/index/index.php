@@ -6,7 +6,7 @@ $action         = $this->arrParam['action'];
 
 if(!empty($this->booksSpecial)){
 	foreach($this->booksSpecial as $book){
-		$booksSpecial .= HTML_Frontend::showProductBox($book, false, true);
+		$booksSpecial .= HTML_Frontend::showProductBox($book, false, true, false, null, null, 'all');
 	}
 }
 

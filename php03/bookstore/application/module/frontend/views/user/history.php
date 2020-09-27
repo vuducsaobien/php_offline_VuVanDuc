@@ -27,8 +27,8 @@ require_once 'elements/head.php';
 
                 $filePicture    = $arrPicture[$keyB];
                 $folder         = TBL_BOOK;
-                $pictureDefault = UPLOAD_URL . $folder . DS . '98x150-default.jpg';
-                $picturePath 	= UPLOAD_URL . $folder . DS . $filePicture;
+                $pictureDefault = URL_UPLOAD . $folder . DS . '98x150-default.jpg';
+                $picturePath 	= URL_UPLOAD . $folder . DS . $filePicture;
         
                 $picture = $picturePath;
                 if(!file_exists($picturePath)) $picture = $pictureDefault;

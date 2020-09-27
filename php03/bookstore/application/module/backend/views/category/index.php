@@ -35,10 +35,10 @@
             $resultID       = Helper::highLight($searchValue, $item['id']);
             $resultName     = Helper::highLight($searchValue, $item['name']);
 
-            $picture        = '<img src="'.UPLOAD_URL . $controller . DS . '60x90-' . $item['picture'].'">';
+            $picture        = '<img src="'.URL_UPLOAD . $controller . DS . '60x90-' . $item['picture'].'">';
             $picturePath    = UPLOAD_PATH . $controller . DS . '60x90-' . $item['picture'];
             if(!file_exists($picturePath)){
-                $picture    = '<img src="'.UPLOAD_URL . $controller . DS . '60x90-default.jpg' .'">';
+                $picture    = '<img src="'.URL_UPLOAD . $controller . DS . '60x90-default.jpg' .'">';
             }
 
             $totalBook = 0;

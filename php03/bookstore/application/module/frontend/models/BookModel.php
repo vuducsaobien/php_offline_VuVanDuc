@@ -24,9 +24,8 @@ class BookModel extends Model
 			$b 		 = '`b`';
 			$tableAs = '`b`';
 
-			$query[] = "SELECT $b.`id`, $b.`name`, $b.`picture`, $b.`sale_off`, $b.`special`, $b.`ordering`, $b.`price`, `b`.`category_id`, $b.`description`
-			, `c`.`name` AS `category_name`";
-
+			$query[] = "SELECT $b.`id`, $b.`name`, $b.`picture`, $b.`sale_off`, $b.`special`, $b.`ordering`, $b.`price`, `b`.`category_id`, `c`.`name` AS `category_name`, 
+			$b.`description`";
 			$query[]	= "FROM `".TBL_BOOK."` AS `b` LEFT JOIN `".TBL_CATEGORY."` AS `c` ON `b`.`category_id` = `c`.`id`";
 
 			$query[] = "WHERE `b`.`status` = 'active'";
@@ -48,8 +47,12 @@ class BookModel extends Model
 			$b 		 = '`b`';
 			$tableAs = '`b`';
 
-			$query[] = "SELECT $b.`id`, $b.`name`, $b.`picture`, $b.`sale_off`, $b.`special`, $b.`ordering`, $b.`price`, $b.`description`";
-			$query[] = "FROM `".TBL_BOOK."` AS $b";
+			// $query[] = "SELECT $b.`id`, $b.`name`, $b.`picture`, $b.`sale_off`, $b.`special`, $b.`ordering`, $b.`price`, $b.`description`";
+			// $query[] = "FROM `".TBL_BOOK."` AS $b";
+			$query[] = "SELECT $b.`id`, $b.`name`, $b.`picture`, $b.`sale_off`, $b.`special`, $b.`ordering`, $b.`price`, `b`.`category_id`, `c`.`name` AS `category_name`, 
+			$b.`description`";
+			$query[]	= "FROM `".TBL_BOOK."` AS `b` LEFT JOIN `".TBL_CATEGORY."` AS `c` ON `b`.`category_id` = `c`.`id`";
+
 			$query[] = "WHERE $tableAs.`status` = 'active' AND $b.`special` = 1 AND $b.`id` <> '$bookID'";
 			$query[] = "ORDER BY $b.`ordering` ASC ";
 			$query[] = "LIMIT 0, 10";

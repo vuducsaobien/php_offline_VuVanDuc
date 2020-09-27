@@ -5,6 +5,9 @@ $action     = $this->arrParam['action'];
 $imageURL   = $this->_dirImg;
 
 // Info This Book_ID
+    // echo '<pre> ';
+    // print_r($this->booksSpecial);
+    // echo '</pre>';
     $bookInfo           = $this->bookInfo;
     $description        = $bookInfo['description'];
     $shortDescription   = substr($description, 0, 400) .' ...';
@@ -35,6 +38,7 @@ if(!empty($this->bookRelate)){
 }
 
 $booksSpecial = HTML_Frontend::createSlide($this->booksSpecial, 3);
+
 $booksNews = HTML_Frontend::createSlide($this->booksNews, 3);
 
 ?>
@@ -130,6 +134,7 @@ $booksNews = HTML_Frontend::createSlide($this->booksNews, 3);
 
                 <div class="col-sm-3 collection-filter">
                     <?php require_once 'elements/service_layout.php'; ?>
+
                     <!-- Sách nổi bật  -->
                     <div class="theme-card">
                         <h5 class="title-border">Sách nổi bật</h5>
@@ -137,6 +142,7 @@ $booksNews = HTML_Frontend::createSlide($this->booksNews, 3);
                             <?php echo $booksSpecial ;?>
                         </div>
                     </div>
+                    
                     <!-- Sách mới -->
                     <div class="theme-card mt-4">
                         <h5 class="title-border">Sách mới</h5>

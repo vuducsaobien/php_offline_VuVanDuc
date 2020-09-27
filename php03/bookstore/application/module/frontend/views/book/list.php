@@ -17,12 +17,8 @@ $slbSortPrice   = HTML::createSelectBox($arrSortPrice, 'filter_price', null, nul
 // Pagination
 $paginationHTML		= $this->pagination->showPaginationPublic(URL::createLink($module, $controller, $action));
 $paginationFrontEnd = HTML_Frontend::createPaginationPublic($this->arrParam['pagination'], $this->totalItems);
-
 // NOTICE 1
 // All Books ACTIVE
-// echo '<pre>$this->_arrParam ';
-// print_r($this->_arrParam);
-// echo '</pre>';
 
 // echo '<pre>';
 // print_r($this->booksActive);
@@ -140,6 +136,7 @@ $booksSpecial = HTML_Frontend::createSlide($this->booksSpecial, 6);
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>

@@ -40,7 +40,7 @@ class View{
 	public function createLink($path, $files, $type = 'css'){
 		$xhtml = '';
 		if(!empty($files)){
-			$path = TEMPLATE_URL . $path . DS;
+			$path = URL_TEMPLATE . $path . DS;
 			foreach($files as $file){
 				if($type == 'css'){
 					$xhtml .= '<link rel="stylesheet" type="text/css" href="'.$path.$file.'"/>';
@@ -79,7 +79,7 @@ class View{
 	public function appendCSS($arrayCSS){
 		if(!empty($arrayCSS)){
 			foreach ($arrayCSS as $css){
-				$file = APPLICATION_URL . $this->_moduleName . DS . 'views' . DS . $css;
+				$file = URL_APPLICATION . $this->_moduleName . DS . 'views' . DS . $css;
 				$this->_cssFiles .= '<link rel="stylesheet" type="text/css" href="'.$file.'"/>';
 			}
 		}
@@ -89,7 +89,7 @@ class View{
 	public function appendJS($arrayJS){
 		if(!empty($arrayJS)){
 			foreach ($arrayJS as $js){
-				$file = APPLICATION_URL . $this->_moduleName . DS . 'views' . DS . $js;
+				$file = URL_APPLICATION . $this->_moduleName . DS . 'views' . DS . $js;
 				$this->_jsFiles .= '<script type="text/javascript" src="'.$file.'"></script>';
 			}
 		}
