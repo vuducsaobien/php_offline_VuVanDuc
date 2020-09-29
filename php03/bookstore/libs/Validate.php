@@ -197,7 +197,7 @@ class Validate{
 			$pattern = '#^(?=.*\d)(?=.*[A-Z])(?=.*\W).{8,8}$#';	// Php4567!
 
 			if(!preg_match($pattern, $this->source[$element])){
-				$this->setError($element, 'is an invalid password');
+				$this->setError($element, 'Is an invalid password');
 			};
 		}
 		
@@ -218,7 +218,7 @@ class Validate{
 		$tsCurrent		= mktime(0, 0, 0, $arrDateCurrent['month'], $arrDateCurrent['day'], $arrDateCurrent['year']);
 		
 		if($tsCurrent < $tsStart || $tsCurrent > $tsEnd){
-			$this->setError($element, 'is an invalid date');
+			$this->setError($element, 'Is an invalid date');
 		}
 	}
 	
@@ -228,7 +228,7 @@ class Validate{
 
 		$query	  = $options['query'];	// SELECT * FROM user where id = 2
 		if($database->isExist($query)==false){
-			$this->setError($element, 'record is not exist');
+			$this->setError($element, 'Record is not exist');
 		}
 	}
 	
@@ -238,7 +238,7 @@ class Validate{
 	
 		$query	  = $options['query'];	// SELECT id FROM user where username = 'admin'
 		if($database->isExist($query)==true){
-			$this->setError($element, 'giá trị này đã tồn tại');
+			$this->setError($element, 'Giá trị này đã tồn tại');
 		}
 	}
 	
@@ -246,12 +246,12 @@ class Validate{
 	private function validateFile($element, $options){
 		if($this->source[$element]['name'] != null){
 			if(!filter_var($this->source[$element]['size'], FILTER_VALIDATE_INT, array("options"=>array("min_range"=>$options['min'],"max_range"=>$options['max'])))){
-				$this->setError($element, 'kích thước không phù hợp');
+				$this->setError($element, 'Kích thước không phù hợp');
 			}
 				
 			$ext = pathinfo($this->source[$element]['name'], PATHINFO_EXTENSION);
 			if(in_array($ext, $options['extension']) == false){
-				$this->setError($element, 'phần mở rộng không phù hợp');
+				$this->setError($element, 'Phần mở rộng không phù hợp');
 			}
 		}
 	}

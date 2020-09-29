@@ -4,7 +4,7 @@ $controller     = $this->arrParam['controller'];
 $action         = $this->arrParam['action'];
 
 $linkMyAccount      = URL::createLink($module, 'user', 'index', null, 'my-account.html');
-$linkChangePass     = URL::createLink($module, 'user', 'change_password');
+$linkChangePass     = URL::createLink($module, 'user', 'changePassword', null, 'change-password.html');
 $linkHistory        = URL::createLink($module, 'user', 'history', null, 'history.html');
 $linkLogout         = URL::createLink($module, 'index', 'logout');
 

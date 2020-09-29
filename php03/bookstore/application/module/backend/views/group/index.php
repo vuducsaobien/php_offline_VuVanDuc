@@ -40,7 +40,8 @@
             $linkACP        = URL::createLink($module, $controller, 'ajaxChangeStatus', ['id' => $id, 'group_acp' => $item['group_acp']]);
             $group_acp	    = HTML::showItemState($linkACP, $item['group_acp'], true);
 
-            $inputOrdering  = Helper::cmsInput('number', "chkOrdering['$id']", $id, 'chkOrdering form-control form-control-sm m-auto text-center', $ordering, null, 'width: 65px', null, $id);
+            $inputOrdering  = Helper::cmsInput('number', "chkOrdering['$id']", $id, 
+            'chkOrdering form-control form-control-sm m-auto text-center position-relative', $ordering, null, 'width: 65px', null, $id);
             $created        = HTML::showItemHistory($item['created_by'], $item['created']);
             $modified       = HTML::showItemHistory($item['modified_by'], $item['modified']);
 

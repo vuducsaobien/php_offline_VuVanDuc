@@ -1,4 +1,4 @@
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
 <?php
 require_once LIBRARY_PATH . 'Model.php';
     $model      = new Model();
@@ -23,7 +23,6 @@ require_once LIBRARY_PATH . 'Model.php';
 
 
     $arrayMenu		= [];
-
     if($userInfo['group_acp'] == 1 && $userInfo['status'] == 'active'){
         $arrayMenu[] = ['link' => $linkAdmin,   'name' => 'Admin Control Panel'];
         // $arrayMenu[] = ['link' => URL::createLink('backend', 'dashboard', 'index'),   'name' => 'Admin Control Panel']; 
@@ -54,7 +53,10 @@ require_once LIBRARY_PATH . 'Model.php';
     $xhtmlCats  = '';
     if (!empty($listCats)) {
         foreach($listCats as $value){
-            $link = URL::createLink('frontend', 'book', 'list', ['category_id' => $value['category_id']]);
+            $cateID = $value['category_id'];
+            $cateNameURL    = URL::filterURL($value['category_name']);
+            $link = URL::createLink('frontend', 'book', 'index', ['category_id' => $cateID], "$cateNameURL-$cateID.html");
+
             $xhtmlCats .= '<li><a href="'.$link.'">'.$value['category_name'].'</a></li>';
         }
     }
@@ -65,18 +67,17 @@ require_once LIBRARY_PATH . 'Model.php';
 
     if($controller=='index') $classHome = 'class="my-menu-link active"';
     if($controller=='book') $classBook = 'class="my-menu-link active"';
-if($controller=='category') $classCategory = 'class="my-menu-link active"';
+    if($controller=='category') $classCategory = 'class="my-menu-link active"';
 
-$cart = Session::get('cart');
-$totalItems = 0;
-$totalPrices = 0;
-$booksOrder = 0;
-if(!empty($cart)){
-    $totalItems = array_sum($cart['quantity']);
-    // echo '<br>';
-    $totalPrices = array_sum($cart['price']);
-    $booksOrder = $totalItems;
-}
+    $cart = Session::get('cart');
+    $totalItems = 0;
+    $totalPrices = 0;
+    $booksOrder = 0;
+    if(!empty($cart)){
+        $totalItems = array_sum($cart['quantity']);
+        $totalPrices = array_sum($cart['price']);
+        $booksOrder = $totalItems;
+    }
 ?>
 <header class="my-header sticky">
     <div class="mobile-fix-option"></div>
@@ -155,6 +156,7 @@ if(!empty($cart)){
                                             </div>
                                         </div>
                                     </li>
+
                                     <li class="onhover-div mobile-cart">
                                         <div>
                                             <a href="<?php echo $linkCart;?>" id="cart" class="position-relative">
@@ -165,6 +167,7 @@ if(!empty($cart)){
                                             </a>
                                         </div>
                                     </li>
+                                    
                                 </ul>
                             </div>
                         </div>

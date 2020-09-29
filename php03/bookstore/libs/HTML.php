@@ -3,11 +3,28 @@ class HTML
 {
     public static function showActionButton($module, $controller, $id)
     {
+        // $link = URL::createLink($module, $controller, 'multi_delete', ['id' => $id]);
         $templateButton = [
-            'view'              => ['icon' => 'eye',        'text' => 'View',           'link' => URL::createLink($module, $controller, 'detail', ['id' => $id]),        'class' => 'btn-primary'],
-            'edit'              => ['icon' => 'pencil-alt', 'text' => 'Edit',           'link' => URL::createLink($module, $controller, 'form', ['id' => $id]),          'class' => 'btn-info'],
-            'delete'            => ['icon' => 'trash-alt',  'text' => 'Delete',         'link' => URL::createLink($module, $controller, 'multi_delete', ['id' => $id]),  'class' => 'btn-danger btn-delete-item'],
-            'reset-password'    => ['icon' => 'key',        'text' => 'Reset Password', 'link' => URL::createLink($module, $controller, 'reset_password', ['id' => $id]), 'class' => 'btn-secondary']
+            'view'              => ['icon' => 'eye',        'text' => 'View',
+                                    'link' => URL::createLink($module, $controller, 'detail', ['id' => $id]),        
+                                    'class' => 'btn-primary'
+                                ],
+
+            'edit'              => ['icon' => 'pencil-alt', 'text' => 'Edit',
+                                    'link' => URL::createLink($module, $controller, 'form', ['id' => $id]),
+                                    'class' => 'btn-info'],
+
+            'delete'            => ['icon' => 'trash-alt',  'text' => 'Delete',
+                                    'link' => URL::createLink($module, $controller, 'multi_delete', ['id' => $id]),
+                                    // 'link' => 'javascript:deleteItem(\'' . $id . '\');',
+
+                                    'class' => 'btn-danger btn-delete-item'
+                                ],
+
+            'reset-password'    => ['icon' => 'key',        'text' => 'Reset Password', 
+                                'link' => URL::createLink($module, $controller, 'reset_password', ['id' => $id]), 
+                                'class' => 'btn-secondary'
+                                ]
         ];
 
         $buttonInArea = [
@@ -32,23 +49,6 @@ class HTML
             ', $currentButton['link'], $currentButton['class'], $currentButton['text'], $currentButton['icon']);
         }
 
-        return $xhtml;
-    }
-
-    // Create Item State
-    public static function showItemState2($link, $state, $classDOM=false)
-    {
-        $classDOM = is_numeric($state) ? 'my-btn-state' : '';
-        // $classDOM = 'my-btn-state';
-
-        $class = 'success';
-        $icon = 'check';
-        if ($state == 'inactive' || $state == '0') {
-            $class = 'danger';
-            $icon = 'minus';
-        }
-
-        $xhtml = '<a href="' . $link . '" class="' . $classDOM . ' rounded-circle btn btn-sm btn-' . $class . '"><i class="fas fa-' . $icon . '"></i></a>';
         return $xhtml;
     }
 

@@ -18,9 +18,18 @@ $linkCategoryForm   = URL::createLink($module, 'category', 'form');
 $linkBookList       = URL::createLink($module, 'book', 'index');
 $linkBookForm       = URL::createLink($module, 'book', 'form');
 $linkCart           = URL::createLink($module, 'cart', 'index');
+
+$linkSlide          = URL::createLink($module, 'slide', 'index');
+
 $linkChangePassword = URL::createLink($module, 'user', 'reset_password');
 $linkViewSite       = URL::createLink('frontend', 'index', 'index');
 $linkLogout         = URL::createLink($module, 'index', 'logout');
+
+// Slide
+$arrSlide = ['parent' => ['name' => 'Slide', 'icon' => 'images','link' => $linkSlide]
+                 ];
+$slide  = HTML::createSidebar($controller,$action,$arrSlide);
+
 
 //dashboard
 $arrDashboard = ['parent' => ['name' => 'Dashboard', 'icon' => 'tachometer-alt','link' => $linkDashboard]
@@ -106,7 +115,7 @@ $logout    = HTML::createSidebar($controller,$action,$arrLogout);
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <?php echo $dashboard . $group . $user . $category . $book . $cart . $changePassword . $viewSite . $logout; ?>
+                <?php echo $dashboard . $group . $user . $category . $book . $cart . $slide . $changePassword . $viewSite . $logout; ?>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

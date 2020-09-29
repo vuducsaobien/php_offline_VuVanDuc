@@ -4,7 +4,6 @@ $controller = $this->arrParam['controller'];
 $action     = $this->arrParam['action'];
 $imageURL   = $this->_dirImg;
 
-$categoryList   = HTML_Frontend::listCategory($this->listCategories, $this->arrParam);
 // SELECT BOX
 $arrSortPrice = [
     ['name'  => '- Sắp Xếp -'  , 'id' => 'default'],
@@ -17,20 +16,13 @@ $slbSortPrice   = HTML::createSelectBox($arrSortPrice, 'filter_price', null, nul
 // Pagination
 $paginationHTML		= $this->pagination->showPaginationPublic(URL::createLink($module, $controller, $action));
 $paginationFrontEnd = HTML_Frontend::createPaginationPublic($this->arrParam['pagination'], $this->totalItems);
+
+$categoryList   = HTML_Frontend::listCategory($this->listCategories, $this->arrParam);
+
 // NOTICE 1
 // All Books ACTIVE
-
-// echo '<pre>';
-// print_r($this->booksActive);
-// echo '</pre>';
-
-// echo '<pre>$this->categoryName ';
-// print_r($this->categoryName);
-// echo '</pre>';
-
 if(!empty($this->booksActive)){
 	foreach($this->booksActive as $item){
-        
         $divStart       = '<div class="col-xl-3 col-6 col-grid-box">';
         $divEnd         = '</div>';
         $listBooksActive   .= HTML_Frontend::showProductBox($item, true, false, true, $divStart, $divEnd, 'all');
@@ -44,7 +36,7 @@ if(!empty($this->booksCategory)){
         $linkCategory   = URL::createLink($module, $controller, $action);
         $divStart       = '<div class="col-xl-3 col-6 col-grid-box">';
         $divEnd         = '</div>';
-        $listBooksCategory   .= HTML_Frontend::showProductBox($item, true, false, true, $divStart, $divEnd);
+        $listBooksCategory   .= HTML_Frontend::showProductBox($item, true, false, true, $divStart, $divEnd, 'all');
     }
 }
 
@@ -75,7 +67,7 @@ $booksSpecial = HTML_Frontend::createSlide($this->booksSpecial, 6);
                         <!-- brand filter start -->
                         <div class="collection-mobile-back"><span class="filter-back"><i class="fa fa-angle-left"aria-hidden="true"></i> back</span></div>
                         <div class="collection-collapse-block open">
-                            <h3 class="collapse-block-title">Danh mục Category Book</h3>
+                            <h3 class="collapse-block-title">Danh mục Category</h3>
                             <div class="collection-collapse-block-content">
                                 <div class="collection-brand-filter">
                                     <?php echo $categoryList ;?>
@@ -136,7 +128,7 @@ $booksSpecial = HTML_Frontend::createSlide($this->booksSpecial, 6);
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

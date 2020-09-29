@@ -26,8 +26,8 @@ class IndexModel extends Model
 		}
 	}
 
-	public function infoItem($arrParam, $option = null){
-		if($option == null) {
+	public function infoItem($arrParam, $options = null){
+		if($options['task'] == null) {
 			$email		= $arrParam['form']['email'];
 			$password	= md5($arrParam['form']['password']);
 
@@ -38,10 +38,28 @@ class IndexModel extends Model
 			$query[]	= "WHERE `email` = '$email' AND `password` = '$password'";		
 
 			$query		= implode(" ", $query);
-			// die('<h3>Die is Called</h3>');
 			$result		= $this->fetchRow($query);					
 			return $result;
+	
+
 		}
+
+		if($options['task'] == 'info-book'){
+			
+			$query[] = "SELECT `id`, `name`, `price`, `sale_off`, `picture`, `short_description`";
+			$query[] = "FROM `".TBL_BOOK."`";
+			$query[] = "WHERE `id` = '{$arrParam['id']}'";
+
+			$query		= implode(" ", $query);
+			$result		= $this->fetchRow($query);	
+			$result['price_format'] = HTML_Frontend::moneyFormat(null, 'price_sale', $result['price'], $result['sale_off']);
+
+			return $result;
+
+		}
+
+
+
 	}
 
 	public function listCategory($arrParam, $option = null){
@@ -117,12 +135,14 @@ class IndexModel extends Model
                 foreach($arrTemp as $key => $item)
                 {
                     $query   = [];
-					$query[] = "SELECT *";
-					$query[] = "FROM `".TBL_BOOK."` AS $b";
+					$query[] = "SELECT $b.`id`, $b.`name`, $b.`picture`, $b.`sale_off`, $b.`price`, `b`.`category_id`, `c`.`name` AS `category_name`, 
+					$b.`description`";
+					$query[]	= "FROM `".TBL_BOOK."` AS `b` LEFT JOIN `".TBL_CATEGORY."` AS `c` ON `b`.`category_id` = `c`.`id`";
+
 					$query[] = "WHERE $b.`category_id` = '{$item['category_id']}'";
 					$query[] = "AND $b.`status` = 'active'";
 					$query[] = "ORDER BY $b.`ordering` ASC";
-					$query[] = "LIMIT 0, 1";
+					$query[] = "LIMIT 0, 5";
 
 					$query	 = implode(" ", $query);
 					$temp	 = $this->fetchAll($query);
@@ -132,6 +152,17 @@ class IndexModel extends Model
 			// unset($arrTemp);
 			return $arrCategorySpecial;
 		}
+
+		if($options['task'] == 'slides-active'){
+			
+			$query[] = "SELECT `id`, `name`, `picture`";
+			$query[]	= "FROM `".TBL_SLIDE."`";
+
+			$query[] = "WHERE `status` = 'active'";
+			$query[] = "ORDER BY `ordering` ASC ";
+			$query[] = "LIMIT 0, 6";
+		}
+
 
 		if($options['task'] != 'books-category' ){
 			echo $query		= implode(" ", $query);

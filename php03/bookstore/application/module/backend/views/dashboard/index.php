@@ -10,11 +10,12 @@ $linkViewSite = URL::createLink('frontend', 'index', 'index');
 
 $imageURL	= $this->_dirImg;
 $arrMenu	= array(
-	['link' => URL::createLink($module, 'group', 'index')		, 'name' => 'Group manager'		, 'count' => $item['group']		, 'icon' => 'ion ion-ios-people'],
-	['link' => URL::createLink($module, 'user', 'index')		, 'name' => 'User manager'		, 'count' => $item['user']		, 'icon' => 'ion ion-ios-person'],
-	['link' => URL::createLink($module, 'category', 'index')	, 'name' => 'Category manager'	, 'count' => $item['category']	, 'icon' => 'ion ion-clipboard'],
-	['link' => URL::createLink($module, 'book', 'index')		, 'name' => 'Book manager'		, 'count' => $item['book']		, 'icon' => 'ion ion-ios-book'],
-	['link' => URL::createLink($module, 'cart', 'index')		, 'name' => 'Cart manager'		, 'count' => $item['cart']		, 'icon' => 'ion ion-ios-cart']
+	['link' => URL::createLink($module, 'group', 'index')		, 'name' => 'Group Manager'		, 'count' => $item['group']		, 'icon' => 'ion ion-ios-people'],
+	['link' => URL::createLink($module, 'user', 'index')		, 'name' => 'User Manager'		, 'count' => $item['user']		, 'icon' => 'ion ion-ios-person'],
+	['link' => URL::createLink($module, 'category', 'index')	, 'name' => 'Category Manager'	, 'count' => $item['category']	, 'icon' => 'ion ion-clipboard'],
+	['link' => URL::createLink($module, 'book', 'index')		, 'name' => 'Book Manager'		, 'count' => $item['book']		, 'icon' => 'ion ion-ios-book'],
+	['link' => URL::createLink($module, 'cart', 'index')		, 'name' => 'Cart Manager'		, 'count' => $item['cart']		, 'icon' => 'ion ion-ios-cart'],
+	['link' => URL::createLink($module, 'slide', 'index')		, 'name' => 'Slide Manager'		, 'count' => $item['slide']		, 'icon' => 'far fa-images']
 );
 
 foreach($arrMenu as $value){

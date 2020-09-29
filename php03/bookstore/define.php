@@ -12,10 +12,12 @@
 	define ('BLOCK_PATH'		, APPLICATION_PATH . 'block' . DS);			// Định nghĩa đường dẫn đến thư mục block							
 	define ('TEMPLATE_PATH'		, PUBLIC_PATH . 'template' . DS);			// Định nghĩa đường dẫn đến thư mục template							
 	
-	define	('URL_ROOT'			, DS . 'php_offline_VuVanDUC' . DS . 'php03' . DS . 'bookstore' . DS);
 	// define	('URL_ROOT'			, DS);
-
-	define	('URL_APPLICATION'	, URL_ROOT .  'application' . DS);
+	// define	('URL_ROOT_NAME'	, 'php_offline_VuVanDUC' . DS . 'php03' . DS . 'bookstore' . DS);
+	define	('URL_ROOT'			, DS . 'php_offline_VuVanDUC' . DS . 'php03' . DS . 'bookstore' . DS);
+	// define	('URL_APPLICATION'	, URL_ROOT . URL_ROOT_NAME .  'application' . DS);
+	// define	('URL_PUBLIC'		, URL_ROOT . URL_ROOT_NAME . 'public' . DS);
+	define	('URL_APPLICATION'	, URL_ROOT . 'application' . DS);
 	define	('URL_PUBLIC'		, URL_ROOT . 'public' . DS);
 	define	('URL_UPLOAD'		, URL_PUBLIC . 'files' . DS);
 	define	('URL_TEMPLATE'		, URL_PUBLIC . 'template' . DS);
@@ -29,7 +31,14 @@
 	define ('DB_USER'			, 'root');						
 	define ('DB_PASS'			, '');						
 	define ('DB_NAME'			, 'bookstore');						
-	define ('DB_TABLE'			, 'group');			
+	define ('DB_TABLE'			, 'group');
+		
+	// define ('DB_HOST'			, 'localhost');
+	// define ('DB_USER'			, 'ducvuphp03_bookstore');						
+	// define ('DB_PASS'			, '3y4lg35p');						
+	// define ('DB_NAME'			, 'ducvuphp03_bookstore');						
+	// define ('DB_TABLE'			, 'group');			
+
 
 	// ====================== DATABASE TABLE===========================
 	define ('TBL_GROUP'			, 'group');
@@ -38,6 +47,7 @@
 	define ('TBL_CATEGORY'		, 'category');
 	define ('TBL_BOOK'			, 'book');
 	define ('TBL_CART'			, 'cart');
+	define ('TBL_SLIDE'			, 'slide');
 	
 	// ====================== CONFIG ===========================
 	define ('TIME_LOGIN'		 , 7200);

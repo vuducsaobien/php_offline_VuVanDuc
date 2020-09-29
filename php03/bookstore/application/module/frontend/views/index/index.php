@@ -3,6 +3,10 @@ $imageURL       = $this->_dirImg;
 $module         = $this->arrParam['module'];
 $controller     = $this->arrParam['controller'];
 $action         = $this->arrParam['action'];
+$cart	= Session::get('cart');
+// echo '<pre>$cart ';
+// print_r($cart);
+// echo '</pre>';
 
 if(!empty($this->booksSpecial)){
 	foreach($this->booksSpecial as $book){
@@ -10,9 +14,39 @@ if(!empty($this->booksSpecial)){
 	}
 }
 
-$cart	= Session::get('cart');
+// Slides
+if(!empty($this->slides)){
+    foreach($this->slides as $item){
+        $classImage     = 'bg-img blur-up lazyload';
+        $link           = '#';
+        $srcPicture     = HTML_Frontend::getSrcPicture($item['picture'], TBL_SLIDE);
+        $picture        = HTML_Frontend::showProductImage($link, $srcPicture, $item['name'], $classImage, false);
+
+        $xhtmlSlides .= '
+        <div>
+            <a href="#" class="home text-center">
+                <img src="'.$srcPicture.'" alt="'.$item['name'].'" class="bg-img blur-up lazyload">
+            </a>
+        </div>
+        ';
+    }
+}else{
+    $xhtmlSlides = '';
+}
+
+// $bookImageURL = URL_UPLOAD . TBL_BOOK . DS;
+// $linkDetail = URL::createLink('frontend', 'book', 'index', ['book_id' => $bookID, 'category_id' => $cateID], 
+// "$cateNameURL/$bookNameURL-$cateID-$bookID.html");
+
 ?>
 
+<!-- Home slider -->
+<section class="p-0 my-home-slider">
+    <div class="slide-1 home-slider">
+        <?php echo $xhtmlSlides;?>
+    </div>
+</section>
+<!-- Home slider end -->
 
 <!-- Title-->
 <div class="title1 section-t-space title5">
@@ -35,42 +69,36 @@ $cart	= Session::get('cart');
 <!-- Product slider end -->
 
 <!-- Giao hàng miễn phí -->
-<?php require_once 'elements/service_layout.php'; ?>
-
+<?php require_once 'elements/service_layout.php';?>
 
 <!-- Danh mục nổi bật -->
-<?php require_once 'elements/books-categories.php'; ?>
-
-
-
-
-<?php
-// echo '<pre>';
-// print_r($this->booksCategories);
-// echo '</pre>';
-?>
+<?php require_once 'elements/books-categories.php';?>
 
 <div class="modal fade bd-example-modal-lg theme-modal" id="quick-view" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content quick-view-modal">
             <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span>
-                </button>
-                <div class="row">
 
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                </button>
+
+                <div class="row">
                     <div class="col-lg-6 col-xs-12">
-                        <div class="quick-view-img"><img src="images/quick-view-bg.jpg" alt="" class="w-100 img-fluid blur-up lazyload book-picture"></div>
+                        <!-- <div class="quick-view-img"><img src="<?php //echo $bookImageURL;?>/" alt="" class="w-100 img-fluid blur-up lazyload book-picture"></div> -->
+                        <div class="quick-view-img"><img src="" alt="" class="w-100 img-fluid blur-up lazyload book-picture"></div>
                     </div>
 
                     <div class="col-lg-6 rtl-text">
                         <div class="product-right">
-                            <h2 class="book-name"><?php echo $this->booksCategories['listbooks']['name'] ;?></h2>
-                            <h3 class="book-price">26.910 ₫ <del>39.000 ₫</del></h3>
+                            <h2 class="book-name"></h2>
+
+                            <h3 class="book-price">
+                                <del></del>
+                            </h3>
+
                             <div class="border-product">
-                                <div class="book-description">Lorem ipsum dolor sit amet consectetur, adipisicing
-                                    elit. Unde quae cupiditate delectus laudantium odio molestiae deleniti facilis
-                                    itaque ut vero architecto nulla officiis in nam qui, doloremque iste. Incidunt,
-                                    in?</div>
+                                <div class="book-description"></div>
                             </div>
 
                             <div class="product-description border-product">
@@ -82,7 +110,7 @@ $cart	= Session::get('cart');
                                                 <i class="ti-angle-left"></i>
                                             </button>
                                         </span>
-                                        <input type="text" name="quantity" class="form-control input-number" value="1">
+                                        <input type="text" name="quantity" class="form-control input-number" value="2">
                                         <span class="input-group-prepend">
                                             <button type="button" class="btn quantity-right-plus" data-type="plus" data-field="">
                                                 <i class="ti-angle-right"></i>
@@ -94,7 +122,9 @@ $cart	= Session::get('cart');
 
                             <div class="product-buttons">
                                 <a href="#" class="btn btn-solid mb-1 btn-add-to-cart">Chọn Mua</a>
-                                <a href="item.html" class="btn btn-solid mb-1 btn-view-book-detail">Xem chi tiết</a>
+                                <a id="button-detail" href="" class="btn btn-solid mb-1 btn-view-book-detail">Xem chi tiết</a>
+                                <!-- <a href="" class="btn btn-solid mb-1 btn-view-book-detail">Xem chi tiết</a> -->
+
                             </div>
 
                         </div>

@@ -38,6 +38,10 @@ class BackendModel extends Model
 		} elseif (isset($this->_columnsCart)) {
 			$this->setTable(TBL_CART);
 			$tableName = ucfirst(TBL_CART);
+
+		} elseif (isset($this->_columnsSlide)) {
+			$this->setTable(TBL_SLIDE);
+			$tableName = ucfirst(TBL_SLIDE);
 		}
 
 		$_columns 			 		= '_columns' . $tableName;
@@ -59,14 +63,21 @@ class BackendModel extends Model
 
 			if ($this->table == TBL_USER) {
 				$arrParam['form']['password'] = md5($arrParam['form']['password']);
+
 			} elseif ($this->table == TBL_CATEGORY) {
 				require_once LIBRARY_EXT_PATH . 'Upload.php';
 				$uploadObj = new Upload();
 				$arrParam['form']['picture'] = $uploadObj->uploadFile($arrParam['form']['picture'], TBL_CATEGORY);
+
 			} elseif ($this->table == TBL_BOOK) {
 				require_once LIBRARY_EXT_PATH . 'Upload.php';
 				$uploadObj = new Upload();
 				$arrParam['form']['picture'] = $uploadObj->uploadFile($arrParam['form']['picture'], TBL_BOOK, '98', '150');
+
+			} elseif ($this->table == TBL_SLIDE) {
+				require_once LIBRARY_EXT_PATH . 'Upload.php';
+				$uploadObj = new Upload();
+				$arrParam['form']['picture'] = $uploadObj->uploadFile($arrParam['form']['picture'], TBL_SLIDE, '300', '124');
 			}
 
 			$data 	= array_intersect_key($arrParam['form'], array_flip($this->_columns));
@@ -97,7 +108,7 @@ class BackendModel extends Model
 				}
 			}
 
-			if ($this->table == TBL_CATEGORY || $this->table == TBL_BOOK) {
+			if ($this->table == TBL_CATEGORY || $this->table == TBL_BOOK || $this->table == TBL_SLIDE) {
 
 				if ($arrParam['form']['picture']['name'] == null) {
 					unset($arrParam['form']['picture']);
@@ -109,7 +120,8 @@ class BackendModel extends Model
 					if ($this->table == TBL_CATEGORY) {
 						$arrParam['form']['picture'] = $uploadObj->uploadFile($arrParam['form']['picture'], TBL_CATEGORY);
 						$uploadObj->removeFile(TBL_CATEGORY, '60x90-' . $arrParam['form']['hidden_picture']);
-					} else {
+
+					} elseif($this->table == TBL_BOOK) {
 						$arrParam['form']['picture'] = $uploadObj->uploadFile($arrParam['form']['picture'], TBL_BOOK, '98', '150');
 						$uploadObj->removeFile(TBL_BOOK, '98x150-' . $arrParam['form']['hidden_picture']);
 					}
@@ -150,7 +162,6 @@ class BackendModel extends Model
 		if (!empty($arrParam['search'])) {
 			$query[] 	 = "AND (";
 			$keyword     = "'%{$arrParam['search']}%'";
-			// foreach ($this->fieldSearchAccepted as $field) {
 			foreach ($this->fieldSearchAccepted as $field) {
 				$query[] = "`$field` LIKE $keyword";
 				$query[] = "OR";
@@ -186,12 +197,16 @@ class BackendModel extends Model
 
 	public function deleteItem($arrParam, $option = null)
 	{
+		// echo '<h3>' . __METHOD__ . '</h3>';
 		if ($option == null) {
 			$ids = [];
 			if (isset($arrParam['id'])) $ids = [$arrParam['id']];
 			if (isset($arrParam['checkbox'])) $ids = $arrParam['checkbox'];
 
-			if ($this->table == TBL_CATEGORY || $this->table == TBL_BOOK) {
+			if ($this->table == TBL_CATEGORY || 
+				$this->table == TBL_BOOK || 
+				$this->table == TBL_SLIDE) 
+			{
 				require_once LIBRARY_EXT_PATH . 'Upload.php';
 				$uploadObj 	= new Upload();
 				$ids 		= implode(',', $ids);
@@ -204,8 +219,12 @@ class BackendModel extends Model
 
 					if ($this->table == TBL_CATEGORY) {
 						$uploadObj->removeFile(TBL_CATEGORY, '60x90-' . $image);
-					} else {
+
+					} elseif($this->table == TBL_BOOK) {
 						$uploadObj->removeFile(TBL_BOOK, '98x150-' . $image);
+
+					} elseif($this->table == TBL_SLIDE) {
+						$uploadObj->removeFile(TBL_SLIDE, '300x124-' . $image);
 					}
 				}
 
@@ -292,12 +311,14 @@ class BackendModel extends Model
 				$g.`modified`, $g.`modified_by`";
 			$query[] = "FROM `$this->table` AS $g";
 			$query[] = "WHERE $tableAs.`id` > '0'";
+
 		} elseif ($this->table == TBL_USER) {
 			$tableAs = '`u`';
 			$query[] = "SELECT $u.`id`, $u.`username`, $u.`password`, $u.`email`, $u.`fullname`,
 				$u.`created`, $u.`created_by`, $u.`status`, $g.`name` AS `group_name`, $u.`group_id`, $u.`modified`, $u.`modified_by`";
 			$query[] = "FROM `$this->table` AS $u LEFT JOIN `" . TBL_GROUP . "` AS $g ON $u.`group_id` = $g.`id`";
 			$query[] = "WHERE $tableAs.`id` > 0";
+
 		} elseif ($this->table == TBL_CATEGORY) {
 			$tableAs = '`c`';
 			$query[] = "SELECT $c.`id`, $c.`name`, $c.`picture`, $c.`status`, $c.`ordering`, $c.`created`, $c.`created_by`,
@@ -305,6 +326,7 @@ class BackendModel extends Model
 
 			$query[] = "FROM `$this->table` AS $c";
 			$query[] = "WHERE $tableAs.`id` > 0";
+
 		} elseif ($this->table == TBL_BOOK) {
 			$tableAs = '`b`';
 			$query[] = "SELECT $b.`id`, $b.`name`, $b.`description`, $b.`price`, $b.`sale_off`, $b.`picture`, $b.`special`,
@@ -312,12 +334,20 @@ class BackendModel extends Model
 
 			$query[] = "FROM `$this->table` AS $b LEFT JOIN `" . TBL_CATEGORY . "` AS $c ON $b.`category_id` = $c.`id`";
 			$query[] = "WHERE $tableAs.`id` > 0";
+
 		} elseif ($this->table == TBL_CART) {
 			$tableAs = '`ca`';
 			$query[] = "SELECT $ca.`id`, $ca.`username`, $ca.`books`, $ca.`prices`, $ca.`quantities`, 
 				$ca.`pictures`, $ca.`status`, $ca.`date`";
 
 			$query[] = "FROM `$this->table` AS $ca";
+
+		} elseif ($this->table == TBL_SLIDE) {
+			$query[] = "SELECT `id`, `name`, `picture`, `status`, `ordering`, 
+				`created`, `created_by`, `modified`, `modified_by`";
+
+			$query[] = "FROM `$this->table`";
+			$query[] = "WHERE `id` > '0'";
 		}
 
 		// FILTER : KEYWORD SEARCH
@@ -440,6 +470,12 @@ class BackendModel extends Model
 			} elseif (isset($arrParam['special'])) {
 				$stateName 	= 'special';
 				$state 		= ($arrParam['special'] == 0) ? 1 : 0;
+
+			} elseif (isset($arrParam['ordering'])) {
+				echo 2222222222222;
+				die('<h3>Die is Called</h3>');
+				$stateName 	= 'ordering';
+				$state			= $arrParam['ordering'];
 			}
 
 			$query  = "UPDATE `$this->table` SET `$stateName` = '$state', `modified` = '$modified', `modified_by` = '$modified_by' WHERE `id` = '$id'";

@@ -3,45 +3,20 @@ $(document).ready(function () {
 	var moduleName = searchParams.get('module');
     var controllerName = searchParams.get('controller');
 
-    // Change Password Button
-    $('.btn-generate-password').click(function(e){
-        e.preventDefault()
-        var newString = randomString()
-        // $('#generatepassword').val(newString);
-        $('input[name="new-password"]').val(newString);
-    })
-    
-    // Check all
-	$('#check-all').change(function () {
-        var checkStatus = this.checked;
-        $('#form-table input[name="checkbox[]"]').each(function () {
-            this.checked = checkStatus;
-        });
-        showSelectedRowInBulkAction();
-    });
-
-	// Number Check All
-    $('#form-table input[name="checkbox[]"]').change(function () {
-        showSelectedRowInBulkAction();
-    });
-
-    // Clear Search
-	$('#btn-clear-search').click(function () {
-		$('input[name=search]').val('');
-	});
-
 	// Prevent delete button
-	$('.btn-delete-item').click(function (e) {
-		var countCheckedInput = $('[name="checkbox[]"]:checked').length;
-		if(countCheckedInput<0){
-			alert('Vui Lòng Chọn Phần Tử Muốn Xóa');
-		}
-	   e.preventDefault();
-	   if (confirm("Bạn có muốn xóa phần tử này không ??")) {
-		   link = $(this).attr('href');
-		   window.location.assign(link);
-	   }
-	});
+	// $('.btn-delete-item').click(function (e) {
+	// 	var countCheckedInput = $('[name="checkbox[]"]:checked').length;
+	// 	if(countCheckedInput<0){
+	// 		alert('Vui Lòng Chọn Phần Tử Muốn Xóa');
+	// 	}
+    //     e.preventDefault();
+        
+	//     if (confirm("Bạn có muốn xóa phần tử này không ??")) {
+	// 	   link = $(this).attr('href');
+	// 	   window.location.assign(link);
+	//     }
+    // });
+
 		
 	// AJAX FILTER GROUP ACP SELECT BOX CHECK
 	$('#filter-bar select[name=filter_group_acp]').change(function () {
@@ -106,24 +81,107 @@ $(document).ready(function () {
 
     // Change ordering event
     $('.chkOrdering').change(function () {
-        $chkOrdering = $(this);
+        var chkOrdering = $(this);
         let ordering = $(this).val();
         let id = $(this).data('id');
         let url = `index.php?module=${moduleName}&controller=${controllerName}&action=ajaxOrdering&id=${id}&ordering=${ordering}`;
+        // let url = `index.php?module=${moduleName}&controller=${controllerName}&action=ajaxChangeState&id=${id}&ordering=${ordering}`;
+        let link = `index.php?module=${moduleName}&controller=${controllerName}&action=ajaxChangeState&id=${id}&ordering=${ordering}`;
         $.get(url, function (data) {
             console.log(data);
 
-            // if (data > 0) {
+            // if (data.state > 0) {
                 $('.modified-' + data.id).html(data.modified);
-                $chkOrdering.notify('Cập nhật thành công!', {
-                    className: 'success',
-                    position: 'top center',
-                });
-            // });
-        // }
+                chkOrdering.attr('href', link);
+                showNotify(chkOrdering, 'success-update');
+            // }
         });
+        'json'
     });
 
+    // $('.chkOrdering').change(function () {
+
+    //     var chkOrdering = $(this);
+    //     var ordering = $(this).val();
+    //     var id = $(this).data('id');
+    //     var link = `index.php?module=${moduleName}&controller=${controllerName}&action=ajaxChangeState&id=${id}&ordering=${ordering}`;
+    //     // var url = $(this).attr('href');
+    //     console.log(chkOrdering)
+    //     // console.log(id)
+    //     // console.log(ordering)
+    //     // console.log(url)
+
+    //     $.get(url, function (data) {
+    //         console.log(data);
+
+    //         // if (data.state > 0) {
+    //             $('.modified-' + data.id).html(data.modified);
+    //             chkOrdering.attr('href', data.link);
+    //             showNotify(myBtnState, 'success-update');
+    //             });
+    //         // }
+    //     });
+    //     'json'
+
+    // });
+
+
+    $('.my-btn-ajax').click(function (e) {
+        e.preventDefault()
+        var myBtnState = $(this);
+        var url = $(this).attr('href');
+        console.log(myBtnState);
+
+        $.get(
+            url,
+            function (data) {
+                // console.log(data);
+                if (data.state == 1 || data.state == 'active') {
+                    myBtnState.removeClass('btn-danger');
+                    myBtnState.addClass('btn-success');
+                    myBtnState.find('i').attr('class', 'fas fa-check');
+                } else {
+                    myBtnState.removeClass('btn-success');
+                    myBtnState.addClass('btn-danger');
+                    myBtnState.find('i').attr('class', 'fas fa-minus');
+                }
+
+                $('.modified-' + data.id).html(data.modified);
+                myBtnState.attr('href', data.link);
+                showNotify(myBtnState, 'success-update');
+            },
+            'json'
+        );
+    });
+
+
+    // Change Password Button
+    $('.btn-generate-password').click(function(e){
+        e.preventDefault()
+        var newString = randomString()
+        // $('#generatepassword').val(newString);
+        $('input[name="new-password"]').val(newString);
+    })
+    
+    // Check all
+    $('#check-all').change(function () {
+        var checkStatus = this.checked;
+        $('#form-table input[name="checkbox[]"]').each(function () {
+            this.checked = checkStatus;
+        });
+        showSelectedRowInBulkAction();
+    });
+
+    // Number Check All
+    $('#form-table input[name="checkbox[]"]').change(function () {
+        showSelectedRowInBulkAction();
+    });
+
+    // Clear Search
+    $('#btn-clear-search').click(function () {
+        $('input[name=search]').val('');
+    });
+    
     // Change group event    
     $('[name="slb_group_id"]').change(function () {
         $currentSelectGroup = $(this);
@@ -168,33 +226,41 @@ $(document).ready(function () {
         );
     });
 
-   $('.my-btn-ajax').click(function (e) {
-    e.preventDefault()
-    var myBtnState = $(this);
-    var url = $(this).attr('href');
-    $.get(
-        url,
-        function (data) {
-            console.log(data);
-            if (data.state == 1 || data.state == 'active') {
-                myBtnState.removeClass('btn-danger');
-                myBtnState.addClass('btn-success');
-                myBtnState.find('i').attr('class', 'fas fa-check');
-            } else {
-                myBtnState.removeClass('btn-success');
-                myBtnState.addClass('btn-danger');
-                myBtnState.find('i').attr('class', 'fas fa-minus');
-            }
+});
+function submitForm(url) {
+	$('#admin-form').attr('action', url);
+	$('#admin-form').submit();
+}
 
-            $('.modified-' + data.id).html(data.modified);
-            myBtnState.attr('href', data.link);
-            showNotify(myBtnState, 'success-update');
-        },
-        'json'
-    );
+function sortList(column, order) {
+	$('input[name=sort_field]').val(column);
+	$('input[name=sort_order]').val(order);
+	$('#form-table').submit();
+}
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'center',
+    // position: 'top-end',
+    showConfirmButton: false,
+    timerProgressBar: true,
+    timer: 5000,
+    padding: '1rem',
 });
 
-});
+function confirmObj(text, icon, confirmText) {
+    return {
+        position: 'top',
+        title: 'Thông báo!',
+        text: text,
+        icon: icon,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: confirmText,
+        cancelButtonText: 'Hủy',
+    };
+}
 
 function randomString()
 {
@@ -223,17 +289,6 @@ function showSelectedRowInBulkAction() {
     }
 }
 
-function submitForm(url) {
-	$('#admin-form').attr('action', url);
-	$('#admin-form').submit();
-}
-
-function sortList(column, order) {
-	$('input[name=sort_field]').val(column);
-	$('input[name=sort_order]').val(order);
-	$('#form-table').submit();
-}
-
 function showNotify($element, $type = 'success-update') {
     switch ($type) {
         case 'success-update':
@@ -244,6 +299,42 @@ function showNotify($element, $type = 'success-update') {
             break;
     }
 }
+
+function deleteItem(id) {
+    // alert (4444)
+    console.log(id)
+    Swal.fire(confirmObj('Bạn chắc chắn muốn xóa dòng dữ liệu này?', 'error', 'Xóa')).then(
+        (result) => {
+            if (result.value) {
+                let searchParams = new URLSearchParams(window.location.search);
+                let moduleName = searchParams.get('module');
+                let controllerName = searchParams.get('controller');
+                window.location.href = `index.php?module=${moduleName}&controller=${controllerName}&action=multi_delete&id=${id}`;
+            }
+        }
+    );
+}
+
+function showToast(type, action) {
+    let message = '';
+    switch (action) {
+        case 'update':
+            message = 'Cập nhật thành công!';
+            break;
+        case 'bulk-action-not-selected-action':
+            message = 'Vui lòng chọn action cần thực hiện!';
+            break;
+        case 'bulk-action-not-selected-row':
+            message = 'Vui lòng chọn ít nhất 1 dòng dữ liệu!';
+            break;
+    }
+
+    Toast.fire({
+        icon: type,
+        title: ' ' + message,
+    });
+}
+
 
 
 

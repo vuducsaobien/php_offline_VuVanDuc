@@ -1,4 +1,4 @@
-<!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <?php
 require_once LIBRARY_PATH . 'Model.php';
     $model      = new Model();
@@ -8,7 +8,6 @@ require_once LIBRARY_PATH . 'Model.php';
     $module         = $this->arrParam['module'];
     $controller     = $this->arrParam['controller'];
     $action         = $this->arrParam['action'];
-
     $imageURL       = $this->_dirImg;
 
     $linkHome       = URL::createLink('frontend', 'index', 'index', null, 'index.html');
@@ -20,19 +19,22 @@ require_once LIBRARY_PATH . 'Model.php';
 
     $linkRegister   = URL::createLink('frontend', 'index', 'register', null, 'register.html');
     $linkLogin      = URL::createLink('frontend', 'index', 'login', null, 'login.html');
-    // $linkLogout     = URL::createLink('backend', 'dashboard', 'logout', null, 'logout.html');
+    // $linkLogout     = URL::createLink('frontend', 'dashboard', 'logout', null, 'logout.html');
+
 
     $arrayMenu		= [];
+
+    if($userInfo['group_acp'] == 1 && $userInfo['status'] == 'active'){
+        $arrayMenu[] = ['link' => $linkAdmin,   'name' => 'Admin Control Panel'];
+        // $arrayMenu[] = ['link' => URL::createLink('backend', 'dashboard', 'index'),   'name' => 'Admin Control Panel']; 
+    }
+
     if($userObj['login'] == false){
         $arrayMenu[] = ['link' => $linkLogin, 	'name' => 'Đăng nhập'];
         $arrayMenu[] = ['link' => $linkRegister, 'name' => 'Đăng ký'];
     }else{
-        $arrayMenu[] = ['link' => URL::createLink('backend', 'dashboard', 'logout'),      'name' => 'Logout'];
         $arrayMenu[] = ['link' => $linkMyAccount,   'name' => 'My Acount Form'];
-    }
-
-    if($userInfo['group_acp'] == 1 && $userInfo['status'] == 'active'){
-        $arrayMenu[] = ['link' => $linkAdmin,   'name' => 'Admin Control Panel']; 
+        $arrayMenu[] = ['link' => URL::createLink('frontend', 'index', 'logout'),      'name' => 'Logout'];
     }
 
     foreach($arrayMenu as $menu){
@@ -52,7 +54,10 @@ require_once LIBRARY_PATH . 'Model.php';
     $xhtmlCats  = '';
     if (!empty($listCats)) {
         foreach($listCats as $value){
-            $link = URL::createLink('frontend', 'book', 'list', ['category_id' => $value['category_id']]);
+            $cateID = $value['category_id'];
+            $cateNameURL    = URL::filterURL($value['category_name']);
+            $link = URL::createLink('frontend', 'book', 'index', ['category_id' => $cateID], "$cateNameURL-$cateID.html");
+
             $xhtmlCats .= '<li><a href="'.$link.'">'.$value['category_name'].'</a></li>';
         }
     }
@@ -63,18 +68,18 @@ require_once LIBRARY_PATH . 'Model.php';
 
     if($controller=='index') $classHome = 'class="my-menu-link active"';
     if($controller=='book') $classBook = 'class="my-menu-link active"';
-if($controller=='category') $classCategory = 'class="my-menu-link active"';
+    if($controller=='category') $classCategory = 'class="my-menu-link active"';
 
-$cart = Session::get('cart');
-$totalItems = 0;
-$totalPrices = 0;
-$booksOrder = 0;
-if(!empty($cart)){
-    $totalItems = array_sum($cart['quantity']);
-    // echo '<br>';
-    $totalPrices = array_sum($cart['price']);
-    $booksOrder = $totalItems;
-}
+    $cart = Session::get('cart');
+    $totalItems = 0;
+    $totalPrices = 0;
+    $booksOrder = 0;
+    if(!empty($cart)){
+        $totalItems = array_sum($cart['quantity']);
+        // echo '<br>';
+        $totalPrices = array_sum($cart['price']);
+        $booksOrder = $totalItems;
+    }
 ?>
 <header class="my-header sticky">
     <div class="mobile-fix-option"></div>

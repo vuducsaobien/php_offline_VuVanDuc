@@ -6,7 +6,10 @@ $booksInCategorySpecial = '';
 // echo '</pre>';
 if (!empty($this->booksCategories)) {
     foreach ($this->booksCategories as $key => $category) {
-        $linkReadMore = URL::createLink($this->arrParam['module'], 'book', 'index', ['category_id' => $category['category_id']]);
+            $cateID         = $category['category_id'];
+            $cateNameURL    = URL::filterURL($category['category_name']);
+
+            $linkReadMore = URL::createLink($this->arrParam['module'], 'book', 'index', ['category_id' => $category['category_id']], "$cateNameURL-$cateID.html");
             $strClass   = '';
             $strDefault = '';
             if ($key == 0) {
@@ -28,7 +31,7 @@ if (!empty($this->booksCategories)) {
             ';
 
             foreach ($category['listBooks'] as $book) {
-                $booksInCategorySpecial .= HTML_Frontend::showProductBox($book, false, true);
+                $booksInCategorySpecial .= HTML_Frontend::showProductBox($book, false, true, false, null, null, 'all');
             }
 
             $booksInCategorySpecial .= '

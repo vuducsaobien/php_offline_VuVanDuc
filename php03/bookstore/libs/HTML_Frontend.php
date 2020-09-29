@@ -19,8 +19,6 @@ class HTML_Frontend
                 "$cateNameURL/$bookNameURL-$cateID-$bookID.html");
         }
 
-        // $link               = URL::createLink('frontend', 'book', 'index', ['category_id' => $cateID, 'book_id' => $bookID]);
-
         $price              = self::showPriceProductBox($product['price'], $product['sale_off']);
         
         $shortDescription   = substr($product['description'], 0, 100) .' ...';
@@ -57,15 +55,30 @@ class HTML_Frontend
         if($showDiv==true)$xhtml = $divStart.$xhtml.$divEnd;
         return $xhtml;
     }
+    public static function showBtnAddToCartProductBox($addToCartLink)
+    {
+        // $xhtml = '<a href="'.$addToCartLink.'" title="Add to cart"><i class="ti-shopping-cart"></i></a>';
+        $xhtml = '<a href="javascript:addToCart(\'' . $addToCartLink . '\');" title="Add to cart"><i class="ti-shopping-cart"></i></a>';
+        return $xhtml;
+    }
+
+    public static function showBtnQuickView($root=null, $bookID=null)
+    {
+        $link = URL::createLink('frontend', 'index', 'quickView', ['id' => $bookID]);
+        // $xhtml = '<a href="'.$link.'" title="Quick View"><i class="ti-search" data-toggle="modal" data-target="#quick-view"></i></a>';
+
+        $xhtml = '<a href="javascript:quickView(\'' . $link . '\');" title="Quick View"><i class="ti-search" data-toggle="modal" data-target="#quick-view"></i></a>';
+        return $xhtml;
+    }
 
     public static function showProductMedia($product, $showName=true, $showDescription=false, $showDiv=false, $divStart='<div>' ,$divEnd='</div>')
     {
         $bookID         = $product['id'];
         $cateID         = $product['category_id'];
-        $bookNameURL    = URL::filterURL($product['name']);
-        $cateNameURL    = URL::filterURL($product['category_name']);
+        $bookNameURL = URL::filterURL($product['name']);
+        $cateNameURL = URL::filterURL($product['category_name']);
 
-        $link               = URL::createLink('frontend', 'book', 'index', ['book_id' => $bookID, 'category_id' => $cateID], 
+        $link           = URL::createLink('frontend', 'book', 'index', ['book_id' => $bookID, 'category_id' => $cateID], 
         "$cateNameURL/$bookNameURL-$cateID-$bookID.html");
 
         $shortDescription   = substr($product['description'], 0, 100) .' ...';
@@ -129,15 +142,13 @@ class HTML_Frontend
 
     public static function getSrcPicture($filePicture, $folder)
     {
-        $pictureDefault = URL_UPLOAD . $folder . DS . '98x150-default.jpg';
-        $picturePath 	= URL_UPLOAD . $folder . DS . $filePicture;
-
-        $picture = $picturePath;
-        if(!file_exists($picturePath)) $picture = $pictureDefault;
-        // echo $picturePath . '<br>';
-        // echo '---------';
+        $picturePath 	= UPLOAD_PATH . $folder . DS . $filePicture;
+        if(file_exists($picturePath)){
+            $picture = URL_UPLOAD . "$folder/$filePicture";
+        }else{
+            $picture = URL_UPLOAD . $folder . DS . '98x150-default.jpg';
+        }
         // echo $picture . '<br>';
-
         return $picture;
     }
 
@@ -175,18 +186,6 @@ class HTML_Frontend
             </div>
             ';
         }
-        return $xhtml;
-    }
-
-    public static function showBtnAddToCartProductBox($addToCartLink)
-    {
-        $xhtml = '<a href="'.$addToCartLink.'" title="Add to cart"><i class="ti-shopping-cart"></i></a>';
-        return $xhtml;
-    }
-
-    public static function showBtnQuickView($root=null, $bookID=null)
-    {
-        $xhtml = '<a href="#" title="Quick View"><i class="ti-search" data-toggle="modal" data-target="#quick-view" data-id="'.$bookID.'"></i></a>';
         return $xhtml;
     }
 
@@ -232,15 +231,18 @@ class HTML_Frontend
     {
         $xhtml = '';
         if(!empty($arrCategory)){
-            foreach($arrCategory as $category){
-                $link = URL::createLink('frontend', 'book', 'list', ['category_id' => $category['category_id']]);
+            foreach($arrCategory as $item){
+                $cateID = $item['category_id'];
+                $cateNameURL    = URL::filterURL($item['category_name']);
+
+                $link = URL::createLink('frontend', 'book', 'index', ['category_id' => $cateID], "$cateNameURL-$cateID.html");
                 $class = 'text-dark';
-                if($arrParam['category_id'] == $category['category_id']) $class = 'my-text-primary';
+                if($arrParam['category_id'] == $item['category_id']) $class = 'my-text-primary';
 
                 $xhtml .= '
                 <div
                     class="custom-control custom-checkbox collection-filter-checkbox pl-0 category-item">
-                    <a class="'.$class.'" href="'.$link.'">'.$category['category_name'].'</a>
+                    <a class="'.$class.'" href="'.$link.'">'.$item['category_name'].'</a>
                 </div>
                 ';
                 }

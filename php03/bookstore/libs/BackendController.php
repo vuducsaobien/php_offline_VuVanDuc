@@ -37,7 +37,7 @@ class BackendController extends Controller{
 	// ACTION: MULTI-DELETE
 	public function multi_deleteAction()
 	{
-		$this->_model->deleteItem($this->_arrParam, ['task' => 'multi-delete']);
+		$this->_model->deleteItem($this->_arrParam);
 		URL::redirect($this->_moduleName, $this->_controllerName, 'index');
 	}
 
@@ -54,8 +54,6 @@ class BackendController extends Controller{
 		$this->_model->bulkAction($this->_arrParam, ['task' => 'multi-unspecial']);
 		URL::redirect($this->_moduleName, $this->_controllerName, 'index');
 	}
-	
-	
 	
 	public function redirectAfterSave($params)
     {

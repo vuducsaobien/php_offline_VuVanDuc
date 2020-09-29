@@ -2,41 +2,36 @@
 // HEAD
 require_once 'elements/head.php';
 
-$dataForm = $userInfo;
+$dataForm       = $this->arrParam['form']; 
 if($this->arrParam['form']['token'] > 0 ) $dataForm = $this->arrParam['form'];
+// echo '<pre>$userInfo ';
+// print_r($userInfo);
+// echo '</pre>';
 
+// echo '<pre>$dataForm ';
+// print_r($dataForm);
+// echo '</pre>';
 // Input
-$inputEmail         = Helper::cmsInput('text', 'form[email]', 'form[email]', 'form-control', $dataForm['email'], null, null, 'readonly');
-$inputChangePass     = Helper::cmsInput('text', 'form[password]', 'form[password]', 'form-control', $dataForm['password']);
-$inputToken        = Helper::cmsInput('hidden', 'form[token]', 'form[token]', null, time());
+// $inputEmail         = Helper::cmsInput('text', 'form[email]', 'form[email]', 'form-control', $dataForm['email'], null, null, 'readonly');
+$inputChangePass    = Helper::cmsInput('text', 'form[password]', 'form[password]', 'form-control', $dataForm['password']);
+$inputToken        	= Helper::cmsInput('hidden', 'form[token]', 'form[token]', null, time());
+$inputOldPass   	= Helper::cmsInput('text', 'form[old-password]', null, 'form-control form-control-sm mb-0', $dataForm['old-password']);
+$inputNewPass   	= Helper::cmsInput('text', 'form[new-password]', null, 'form-control form-control-sm mb-0', $dataForm['new-password']);
 
-// Row
-$RowEmail         = HTML_Frontend::cmsRowForm('Email', $inputEmail, false, 'email', null, 'form-group');
-$RowChangePass       = HTML_Frontend::cmsRowForm('Mật Khẩu Mới', $inputChangePass, false, 'fullname', null, 'form-group');
-
-// Button
-$btnSubmit = Helper::cmsButton('button', 'Cập nhật mật khẩu', 'submit', 'submit', 'btn btn-solid btn-sm', null, 'Cập nhật mật khẩu');
-
-
-$newPassword    = Helper::randomString(8);
-// Input
-$inputNewPass   = Helper::cmsInput('text', 'new-password', null, 'form-control form-control-sm mb-0', $newPassword, null, null, 'readonly');
 // Link Button
-// $linkSave       = URL::createLink($module, $controller, $action, ['type' => 'save', 'id' => $id]);
-// $linkChangePass = URL::createLink($module, $controller, 'reset_password');
-// $linkCancel     = URL::createLink('backend', 'user', 'index');
+// $linkSubmit          = URL::createLink($module, $controller, 'changePassword');
+$linkCancel     = URL::createLink('frontend', 'user', 'index');
 
 // Button
-// $btnSave        = Helper::cmsButton('noIcon', 'Save', null, 'submit', 'btn btn-sm btn-success mt-2', $linkSave);
-$btnChangePass  = Helper::cmsButton('button', 'Generate Password', 'generatepassword', null, 'btn btn-sm btn-info mt-2 btn-generate-password', $linkChangePass);
-// $btnCancel      = Helper::cmsButton('noIcon', 'Cancel', null, 'button', 'btn btn-sm btn-danger mt-1', $linkCancel);
+$btnSubmit 		= Helper::cmsButton('button', 'Cập nhật mật khẩu', 'submit', 'submit', 'btn btn-sm btn-solid ', null, 'Cập nhật mật khẩu');
+$btnCancel      = Helper::cmsButton('noIcon', 'Cancel', null, 'button', 'btn btn-sm btn-danger mt-1', $linkCancel);
 
 // Row
-// $rowID          = HTML::rowChangePass('p', 'ID', $id);
-// $rowUserName    = HTML::rowChangePass('p', 'Username', $username);
-// $rowEmail       = HTML::rowChangePass('p', 'Email', $email);
-// $rowFullName    = HTML::rowChangePass('p', 'Full Name', $fullname);
-// $rowNewPass     = HTML::rowChangePass('input', 'New Password', null, $inputNewPass.' '.$btnSave.' '.$btnChangePass.' '.$btnCancel);
+// $rowEmail       = HTML_Frontend::cmsRowForm('Email', $inputEmail, 		false, 'email', null, 'form-group');
+$rowOldPass     = HTML_Frontend::cmsRowForm('Mật Khẩu Cũ', $inputOldPass, false, 'old-password', null, 'form-group');
+$rowNewPass     = HTML_Frontend::cmsRowForm('Mật Khẩu Mới', $inputNewPass, false, 'new-password', null, 'form-group');
+// $rowOldPass     = HTML::rowChangePass('input', 'Mật Khẩu Cũ', null, $inputOldPass);
+// $rowNewPass     = HTML::rowChangePass('input', 'Mật Khẩu Mới', null, $inputNewPass);
 
 ?>
 
@@ -55,10 +50,8 @@ $btnChangePass  = Helper::cmsButton('button', 'Generate Password', 'generatepass
 					<div class="dashboard">
 						<form action="" method="post" id="admin-form" class="theme-form">
 							<?php if (!empty($error)) { echo $message = $error;} else { echo $message = HTML::showMessage();}?>
-							<?php echo $RowEmail . $RowChangePass . $inputToken;?>
-							<?php echo $btnChangePass . ' ' . $btnSubmit;?>
-
-							<!-- <button type="submit" id="submit" name="submit" value="Cập nhật mật khẩu" class="btn btn-solid btn-sm">Cập nhật mật khẩu</button> -->
+							<?php echo $rowOldPass . $rowNewPass . $inputToken;?>
+							<?php echo $btnSubmit . ' ' . $btnCancel;?>
 						</form>
 					</div>
 				</div>

@@ -23,6 +23,7 @@ class IndexController extends Controller{
 
 		$this->_view->_title = 'Trang chủ | Book Store';
 		$this->_view->booksSpecial 		= $this->_model->listItem($this->_arrParam, ['task' => 'books-special']);
+		$this->_view->slides 		= $this->_model->listItem($this->_arrParam, ['task' => 'slides-active']);
 
 		$this->_view->categoriesSpecial = $this->_model->listItem($this->_arrParam, ['task' => 'categories-special']);
 		$this->_view->booksCategories = $this->_model->listItem($this->_arrParam, ['task' => 'books-category']);
@@ -76,7 +77,6 @@ class IndexController extends Controller{
 	public function noticeAction(){
 		$title = ucfirst($this->_controllerName) . ' || ' . ucfirst($this->_actionName);
 		$this->_view->setTitle($title);
-		// $this->_view->render($this->_controllerName . '/notice');
 		$this->_view->render('index/notice');
 	}
 
@@ -86,8 +86,6 @@ class IndexController extends Controller{
 		$userInfo	= Session::get('user');
 		if( $userInfo['login'] == true && $userInfo['time'] + TIME_LOGIN >= time() ){
 			URL::redirect('frontend', 'user', 'index');
-			// URL::redirect($this->_moduleName, $this->_controllerName, 'index');
-			// URL::redirect($this->_moduleName, 'dashboard', 'index');
 		}
 
 		if(isset($this->_arrParam['form']['submit'])){
@@ -127,8 +125,17 @@ class IndexController extends Controller{
 	{
 		Session::delete('user');
 		URL::redirect($this->_moduleName, $this->_controllerName, 'index', null, 'index.html');
-		// URL::redirect('frontend', 'index', 'index');
-		// URL::redirect($this->_moduleName, $this->_controllerName, $this->_actionName);
+	}
+
+	public function quickViewAction()
+	{
+		// echo '<h3>' . __METHOD__ . '</h3>';
+		// echo '<pre>$this->_arrParam ';
+		// print_r($this->_arrParam);
+		// echo '</pre>';
+
+		$result = $this->_model->infoItem($this->_arrParam, ['task' => 'info-book']);
+		echo json_encode($result);
 	}
 
 

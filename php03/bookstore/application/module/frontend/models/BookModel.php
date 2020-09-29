@@ -36,8 +36,10 @@ class BookModel extends Model
 			$b 		 = '`b`';
 			$tableAs = '`b`';
 
-			$query[] = "SELECT $b.`id`, $b.`name`, $b.`picture`, $b.`sale_off`, $b.`special`, $b.`ordering`, $b.`price`, $b.`description`";
-			$query[] = "FROM `$this->table` AS $b";
+			$query[] = "SELECT $b.`id`, $b.`name`, $b.`picture`, $b.`sale_off`, $b.`special`, $b.`ordering`, $b.`price`, `b`.`category_id`, `c`.`name` AS `category_name`, 
+			$b.`description`";
+			$query[]	= "FROM `".TBL_BOOK."` AS `b` LEFT JOIN `".TBL_CATEGORY."` AS `c` ON `b`.`category_id` = `c`.`id`";
+			
 			$query[] = "WHERE $tableAs.`status` = 'active' AND `category_id` = '".$arrParam['category_id']."' ";
 			$query[] = "ORDER BY $b.`ordering` ASC ";
 			// $query[] = "LIMIT 0, 100";
@@ -163,7 +165,7 @@ class BookModel extends Model
 		if($options['task'] == 'categories-active'){
 			$query[]	= "WHERE `c`.`status` = 'active'";
 			$query[]	= "GROUP BY `b`.`category_id`";
-			$query[] 	= "ORDER BY `category_id` ASC ";
+			$query[] 	= "ORDER BY `c`.`ordering` ASC ";
 			// $query[] 	= "LIMIT 0,4";
 		}
 
@@ -176,7 +178,6 @@ class BookModel extends Model
 		}elseif($options['task'] == 'categories-active'){
 			$result		= $this->fetchAll($query);	
 		}
-		// die('<h3>Die is Called</h3>');
 		return $result;
 	}
 	

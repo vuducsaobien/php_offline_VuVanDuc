@@ -95,10 +95,12 @@ class UserModel extends Model
 			$names		= json_encode($arrParam['form']['name'], JSON_UNESCAPED_UNICODE );
 			$pictures	= json_encode($arrParam['form']['picture'], JSON_UNESCAPED_UNICODE );
 			$date		= date(DB_DATETIME_FORMAT);
-			
+			// VALUES ('$id', '$username', '$books', '$prices', '$quantities', '$names', '$pictures', 'inactive', '$date', 'null', '$username')
+
 			$query	= "INSERT INTO `".TBL_CART."`(
 					`id`, `username`, `books`, `prices`, `quantities`, `names`, `pictures`, `status`, `date`)
-			VALUES ('$id', '$username', '$books', '$prices', '$quantities', '$names', '$pictures', 'inactive', '$date', 'null', '$username')";
+			VALUES ('$id', '$username', '$books', '$prices', '$quantities', '$names', '$pictures', 'inactive', '$date')";
+
 			$this->query($query);
 			Session::delete('cart');
 		}
@@ -136,6 +138,29 @@ class UserModel extends Model
 	
 		$result		= substr($arrCharacter, 0, $length);
 		return $result;
+	}
+
+	public function ajaxQuantities($arrParam, $option = null)
+    {
+		if($option == null){
+			echo '<pre>$arrParam ';
+			print_r($arrParam);
+			echo '</pre>';
+			// $id 	  		= $arrParam['id'];
+			// $stateName 		= 'ordering';
+			// $state			= $arrParam['ordering'];
+			// $modified 	  	= $this->modified;
+			// $modified_by 	= $this->modified_by;
+
+			// $query  = "UPDATE `$this->table` SET `$stateName` = '$state', `modified` = '$modified', `modified_by` = '$modified_by' WHERE `id` = $id";
+			
+			// $this->query($query);
+			// return [
+			//     'id' 	   	=> $id,
+			// 	'modified'  => HTML::showItemHistory($modified_by, $modified),
+			// 	'link'      => URL::createLink($arrParam['module'], $arrParam['controller'], 'ajaxOrdering', ['id' => $id, "$stateName" => $state])
+			// ];
+		}
 	}
 
 

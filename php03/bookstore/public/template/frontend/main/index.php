@@ -26,10 +26,6 @@
         <?php require_once 'html/header.php' ;?>
     <!-- header end -->
 
-    <!-- Home slider -->
-        <?php //require_once 'html/home_slider.php' ;?>
-    <!-- Home slider end -->
-
     <!-- LOAD CONTENT -->
         <!-- Tab product --> 
             <?php

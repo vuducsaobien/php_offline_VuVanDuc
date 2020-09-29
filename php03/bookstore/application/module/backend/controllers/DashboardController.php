@@ -23,6 +23,7 @@ class DashboardController extends Controller
 		$totalItems['book']		= $this->_model->countItem($this->_arrParam, 'book');
 		$totalItems['category']	= $this->_model->countItem($this->_arrParam, 'category');
 		$totalItems['cart']		= $this->_model->countItem($this->_arrParam, 'cart');
+		$totalItems['slide']	= $this->_model->countItem($this->_arrParam, 'slide');
 
 		$this->_view->Items = $totalItems;
 		$this->_view->_title = 'DashBoard';

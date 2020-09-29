@@ -4,16 +4,17 @@ RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
 
-RewriteRule		index.html 			index.php?module=frontend&controller=index&action=index
-RewriteRule		category.html 		index.php?module=frontend&controller=category&action=index
-RewriteRule		register.html 		index.php?module=frontend&controller=index&action=register
-RewriteRule		login.html 			index.php?module=frontend&controller=index&action=login
-RewriteRule		cart.html 			index.php?module=frontend&controller=user&action=cart
-RewriteRule		my-account.html 	index.php?module=frontend&controller=user&action=index
-RewriteRule		history.html 		index.php?module=frontend&controller=user&action=history
-RewriteRule		book.html 		    index.php?module=frontend&controller=book&action=list
+RewriteRule		index.html 			    index.php?module=frontend&controller=index&action=index
+RewriteRule		category.html 		    index.php?module=frontend&controller=category&action=index
+RewriteRule		register.html 		    index.php?module=frontend&controller=index&action=register
+RewriteRule		login.html 			    index.php?module=frontend&controller=index&action=login
+RewriteRule		cart.html 			    index.php?module=frontend&controller=user&action=cart
+RewriteRule		my-account.html 	    index.php?module=frontend&controller=user&action=index
+RewriteRule		change-password.html 	index.php?module=frontend&controller=user&action=changePassword
+RewriteRule		history.html 		    index.php?module=frontend&controller=user&action=history
+RewriteRule		book.html 		        index.php?module=frontend&controller=book&action=list
 
-RewriteRule		admin.html 		    index.php?module=backend&controller=dashboard&action=index
+RewriteRule		admin.html 		        index.php?module=backend&controller=dashboard&action=index
 
 
 RewriteRule		([A-Za-z0-9_-]+)-([0-9]+)\.html 	                        index.php?module=frontend&controller=book&action=list&category_id=$2

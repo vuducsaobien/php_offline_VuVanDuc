@@ -15,7 +15,7 @@ class UserController extends Controller
 		$this->_actionName = $this->_arrParam['action'];
 	}
 
-	public function change_passwordAction(){
+	public function changePasswordAction(){
 		$title = ucfirst($this->_controllerName) . ' || ' . ucfirst($this->_actionName);
 
 		if (!isset($this->_arrParam['form']['token'])) {
@@ -72,6 +72,28 @@ class UserController extends Controller
 		// $this->_view->render('user/index');
 	}
 
+	public function historyAction(){
+		$title = ucfirst($this->_controllerName) . ' || ' . ucfirst($this->_actionName);
+		$this->_view->_title	= 'History';
+		$this->_view->Items		= $this->_model->listItem($this->_arrParam, ['task' => 'history-cart']);
+		$this->_view->setTitle($title);
+		$this->_view->render('user/history');
+		// $this->_view->render($this->_controller.'/history');
+	}
+	
+	public function buyAction(){
+		$title = ucfirst($this->_controllerName);
+		$this->_model->saveItem($this->_arrParam, ['task' => 'submit-cart']);
+		// URL::redirect('default', 'index', 'index');
+		$this->_view->setTitle($title);
+		URL::redirect($this->_moduleName, 'index', 'index');
+	}
+
+	public function ajaxQuantitiesCartAction(){
+		$result = $this->_model->ajaxQuantities($this->_arrParam);
+        // echo json_encode($result);
+	}
+
 	public function orderAction(){
 		$cart	= Session::get('cart');
 		$bookID	= $this->_arrParam['book_id'];
@@ -89,9 +111,10 @@ class UserController extends Controller
 				$cart['price'][$bookID]		= $price;
 			}
 		}
-		
 		Session::set('cart', $cart);
-		URL::redirect($this->_moduleName, 'book', 'index', ['book_id' => $bookID]);
+
+		// URL::redirect($this->_moduleName, 'book', 'index', ['book_id' => $bookID]);
+		echo json_encode(array_sum($cart['quantity']));
 	}
 
 	public function cartAction(){
@@ -100,22 +123,9 @@ class UserController extends Controller
 		$this->_view->render('user/cart');
 	}
 
-	public function historyAction(){
-		$title = ucfirst($this->_controllerName) . ' || ' . ucfirst($this->_actionName);
-		$this->_view->_title	= 'History';
-		$this->_view->Items		= $this->_model->listItem($this->_arrParam, ['task' => 'history-cart']);
-		$this->_view->setTitle($title);
-		$this->_view->render('user/history');
-		// $this->_view->render($this->_controller.'/history');
-	}
-	
-	public function buyAction(){
-		$title = ucfirst($this->_controllerName);
-		$this->_model->saveItem($this->_arrParam, ['task' => 'submit-cart']);
-		// URL::redirect('default', 'index', 'index');
-		$this->_view->setTitle($title);
-		URL::redirect($this->_moduleName, 'index', 'index');
-	}
+
+
+
 
 
 
